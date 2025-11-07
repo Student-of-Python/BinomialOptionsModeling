@@ -1,19 +1,21 @@
 package model;
+import java.util.ArrayList;
+
 public class BinaryTree{
-    Node<Double> root;
-    final Double U; 
-    final Double D;
-    public BinaryTree(Node<Double> root, Double U, Double D) {
+    Node root;
+    final double U; 
+    final double D;
+    public BinaryTree(Node root, double U, double D) {
         this.root = root;
         this.U = U;
         this.D = D; }
 
     
-    public void add(){
-        add(this.root);
+    public void add(double stock_price){
+        add(this.root, stock_price);
     }
 
-    public void add(Node<Double> current){
+    public void add(Node current, double stock_price){
         //Recursively add nodes to the tree
         //Base base --> leaf has no children, add children
         //Case 2: Node has children, recurse down the tree until hit leaf, then add children
@@ -26,8 +28,8 @@ public class BinaryTree{
 
         if (current.left == null && current.right == null) {
          //Node has no children, add two children
-            current.left = new Node<>(current.value * this.U);
-            current.right = new Node<>(current.value * this.D);
+            current.left = new Node(current,current.value * this.U, stock_price);
+            current.right = new Node(current,current.value * this.D, stock_price);
             return;
         }
         
@@ -36,19 +38,57 @@ public class BinaryTree{
             }
     
         // Recursive case - both children exist
-        add(current.left);
-        add(current.right);
+        add(current.left, stock_price);
+        add(current.right, stock_price);
     }
 
 
+    
+
+    public int getHeight(Node node) {
+        //If node is null, height is 0
+        if (node == null) return 0;
+        int leftHeight = getHeight(node.left);
+        int rightHeight = getHeight(node.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    public ArrayList<Node> getLeafs(){
+        ArrayList<Node> leafs = new ArrayList<>();
+        getLeafs(this.root, leafs);
+        return leafs;
+    }
+
+
+
+    public ArrayList<Double> getTerminalValues(){
+        //Get all the ending values of the leafs
+        ArrayList<Double> terminalValues = new ArrayList<>();
+        for (Node leaf : getLeafs()) {
+            terminalValues.add(leaf.value);
+        }
+        return terminalValues;
+    }
+
+    public void getLeafs(Node node, ArrayList<Node> leafs){
+        //Iterates and gets all the children
+        if (node == null) return;
+
+        if (node.left == null && node.right == null) {
+            leafs.add(node);
+            return;
+        }
+
+        getLeafs(node.left, leafs);
+        getLeafs(node.right, leafs);
+    }
 
     public void printTree(){
         printTree(this.root, "", true);
     }
 
 
-
-    public void printTree(Node<Double> node, String prefix, boolean isLeft){
+    public void printTree(Node node, String prefix, boolean isLeft){
         if (node == null) return;
 
         // Print the right subtree first (so it appears on top visually)
