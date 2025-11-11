@@ -1,16 +1,13 @@
 package model;
 public class Node{
-    Node left;
+    Node left; 
     Node right;
-    Node parent;
-    boolean payoff;
-    double value;
+    double payoff; // Whether any money is won
+    double value; //Stock price given U, D
 
-    public Node(Node parent, double value, double price) {
-        this.parent = parent;
+    public Node(double value) {
         this.value = value;
         this.left = null;
         this.right = null;
-        this.payoff = value > price;
     }
 }

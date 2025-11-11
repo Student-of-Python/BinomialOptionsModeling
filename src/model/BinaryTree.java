@@ -5,17 +5,18 @@ public class BinaryTree{
     Node root;
     final double U; 
     final double D;
-    public BinaryTree(Node root, double U, double D) {
+    public BinaryTree(Node root, double U) {
+        assert U > 0 : "Upside cannot be negative " + U; 
         this.root = root;
-        this.U = U;
-        this.D = D; }
+        this.U = 1 + U;
+        this.D = 1.0 / this.U; }
 
     
-    public void add(double stock_price){
-        add(this.root, stock_price);
+    public void add(){
+        add(this.root);
     }
 
-    public void add(Node current, double stock_price){
+    public void add(Node current){
         //Recursively add nodes to the tree
         //Base base --> leaf has no children, add children
         //Case 2: Node has children, recurse down the tree until hit leaf, then add children
@@ -28,8 +29,8 @@ public class BinaryTree{
 
         if (current.left == null && current.right == null) {
          //Node has no children, add two children
-            current.left = new Node(current,current.value * this.U, stock_price);
-            current.right = new Node(current,current.value * this.D, stock_price);
+            current.left = new Node(current.value * this.U);
+            current.right = new Node(current.value * this.D);
             return;
         }
         
@@ -38,11 +39,9 @@ public class BinaryTree{
             }
     
         // Recursive case - both children exist
-        add(current.left, stock_price);
-        add(current.right, stock_price);
+        add(current.left);
+        add(current.right);
     }
-
-
     
 
     public int getHeight(Node node) {
@@ -59,17 +58,6 @@ public class BinaryTree{
         return leafs;
     }
 
-
-
-    public ArrayList<Double> getTerminalValues(){
-        //Get all the ending values of the leafs
-        ArrayList<Double> terminalValues = new ArrayList<>();
-        for (Node leaf : getLeafs()) {
-            terminalValues.add(leaf.value);
-        }
-        return terminalValues;
-    }
-
     public void getLeafs(Node node, ArrayList<Node> leafs){
         //Iterates and gets all the children
         if (node == null) return;
@@ -81,6 +69,16 @@ public class BinaryTree{
 
         getLeafs(node.left, leafs);
         getLeafs(node.right, leafs);
+    }
+    
+
+    public ArrayList<Double> getTerminalValues(){
+        //Get all the ending values of the leafs
+        ArrayList<Double> terminalValues = new ArrayList<>();
+        for (Node leaf : getLeafs()) {
+            terminalValues.add(leaf.value);
+        }
+        return terminalValues;
     }
 
     public void printTree(){

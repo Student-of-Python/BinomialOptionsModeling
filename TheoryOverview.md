@@ -25,21 +25,32 @@
     --> Chances that the underlying asset decreases in value
     --> Denotated as P(D) (= 1 - P(D))
 
+
+## Forward Binary Tree
+Say the current stock is P0 at time T0. From its current price, it can only go **up** or **down** to T + 1. Hence, we'll model this movement by adding two children nodes from the current one, with the right node having the value of P0 * U (signaling upside movement) and the left node having a value of P0 * D (downside movement). 
+
 <img src="BinomialModelPicture1.png" alt="Alt Text" style="width:30%; height:auto;">
 
-## First Step: Forward Binary Options Pricing Tree
-Given that binary options follow binomial distrubution behavior, a binary tree data structure would be the best data structure to capture the behavior. 
-
+Then, for each of those child nodes, we'll model the price movement from that point. We'll do this until we've met the desired time, T.
 
 #### Visual Demonstration
 Here is a sample of forward binary options pricing tree with the following parameters: iterations = 2, Upside & Downside  = 10% 
 
-        ┌── 81.00
-    ┌── 90.00
+        ┌── 121.00
+    ┌── 110.00
     │   └── 99.00
     100.00
     │   ┌── 99.00
-    └── 110.00
-        └── 121.00
+    └── 90.00
+        └── 81.00
 
-    
+## Backward induction
+
+At this point, there are many paths the stock price can take. We are given some strike price S for the option. As market makers, we want to ask ourselves, **"What is a fair price for this option"?**. 
+
+To tackle this prompt, we start by calculating payoff: How much will this option worth at expiration (European Options).
+Simply, the value of the option at price P is equal to ``` max(0, P - Strike_Price) ```. We'll use simple numbers to demonstrate in the image below.
+
+<img src="BinomialModelValue.png" alt="Alt Text" style="width:50%; height:auto;">
+
+At this point, we need to calculate the expected value of the option, which is simply V_now = e^(−rΔt) × [ P(U) × V_up + (1 − P(U)) × V_down ]
