@@ -5,7 +5,7 @@
 **This is only for educational purposes, this is NOT financial advice**
 
 ## Preview
-The **Binomial Model** provides a method to determine an options fair price in present value by projecting future price movements of an underlying asset over a discrete amount of time. In the most simplest forms, this model only considers that the price of the underlying asset can only move in two directions -- up and down -- at a fixed magnitude.
+The **Binomial Model** provides a method to determine an option's fair price in present value by projecting future price movements of an underlying asset over a discrete amount of time. In the simplest forms, this model only considers that the price of the underlying asset can only move in two directions -- up and down -- at a fixed magnitude.
 
 
 
@@ -23,7 +23,7 @@ The **Binomial Model** provides a method to determine an options fair price in p
 → Represented as D = 1 / U.
 
 4. Strike Price ($S_k$)
-→ The price at which the option can be exercised at.
+→ The price at which the option can be exercised.
 
 5. Risk Free Rate ($r$)
 → Guaranteed rate of return with no risk. 
@@ -78,7 +78,7 @@ At expiration, each **terminal node** has a payoff -- the value of the option at
 Given these payoffs, we want to ask, what is the fair price of the option today? 
 
 ### Step 1: Calculate the Payoffs
-Recall for an option, there are two components for determining payoff:
+Recall that for an option, there are two components for determining payoff:
 \
 Stock Price: $S$
 \
@@ -108,27 +108,27 @@ $$
   <img src="Picture3.png" alt="Backward Induction Visualization" width="500"><br>
   <em>Figure 3:  Option Price Visualization</em>
 </p>
-At earlier node (that is, the parent node of the current children), we want to calculate the expected discount value given the two future outcomes:
+At the earlier node (that is, the parent node of the current children), we want to calculate the expected discount value given the two future outcomes:
 
 $$ V_{current} = e^{-r \cdot Δt} \cdot (p \cdot V_{\text{up}} + (1-p) \cdot V_{\text{down}}) $$
 
 Where 
-* $r$ is the risk free rate
+* $r$ is the risk-free rate
 * $Δt$ is the time between steps
-* $p$ is the risk nuetral probability
+* $p$ is the risk-neutral probability
 
 $$ p = \frac{e^{r \cdot Δt} - D}{U - D} $$
 
 Note that instead of the probabilities given P(U) or P(D), we use risk nuetral probability. This is because we want to ensure **no arbitrage** -- meaning there is no way to make a riskless profit by combining stocks and options. [^Further Info]
 
-Although it may complicated, it'll be easier to understand once broken down. 
+Although it may be complicated, it'll be easier to understand once broken down. 
 Inside the formula, it'll look identitcal as if you were to just compute regular expected value of the option, except we used risk nuetral probability instead of up and down probabilities.
 
 $$
 V_{current} = (p_{up} \cdot V_{\text{up}} + (1-p_{down}) \cdot V_{\text{down}})
 $$
 
-The factor being multiplied by the expected value ($e^{-r \cdot Δt}$) is the discount factor. Since money is flowing from the future and closer to present day, we must discount it so that it is equivalent in value. [^Time Value of Money]
+The factor being multiplied by the expected value ($e^{-r \cdot Δt}$) is the discount factor. Since money is flowing from the future and closer to the present day, we must discount it so that it is equivalent in value. [^Time Value of Money]
 
 We'll repeat this process until we've reached the root node, which gives the fair option price today. 
 
@@ -172,14 +172,14 @@ Option Value: 7.19
 ## Conclusion and Takeaways
 The **Binomial Model** combines two integral components of finance together -- time value of money and risk neutrality -- to determine a fair price for an option.
 
-One of my biggest takeaways was the absence of upward and downward probabilities: **Regardless of the chances of the stock going up or down, the price of the option will be the same**. Another way to look at it is we're pricing the volitility of the underlying asset. Intuitively, it makes sense, since market makers need to be hedged against up or down movement -- they don't profit off of guessing price direction, but from ensuring a fair and riskless price.  [^Additional Resource]
+One of my biggest takeaways was the absence of upward and downward probabilities: **Regardless of the chances of the stock going up or down, the price of the option will be the same**. Another way to look at it is we're pricing the volatility of the underlying asset. Intuitively, it makes sense, since market makers need to be hedged against up or down movement -- they don't profit off of guessing price direction, but from ensuring a fair and riskless price.  [^Additional Resource]
 
-Another key insight was the concept of arbitrage; It gave me perspective on how options are priced in from a market makers standpoint. It also showed me how there is no *free lunch* in a free, effecient market. I'm curious to see how other instruments are priced in with arbitrage, and if there are any limitations to this approach. 
+Another key insight was the concept of arbitrage; It gave me perspective on how options are priced in from a market makers standpoint. It also showed me how there is no *free lunch* in a free, efficient market. I'm curious to see how other instruments are priced in with arbitrage, and if there are any limitations to this approach. 
 
 
 ## Further Comments
 ### Outlook
-Since the [Black-Scholes](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model) model can be derived from the binary options model, I may consider tackling it in the future. I may also consider doing more complex opperations, such adding American Options or add the greeks for sensitivity changes. 
+Since the [Black-Scholes](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model) model can be derived from the binary options model, I may consider tackling it in the future. I may also consider doing more complex operations, such as adding American Options or adding the Greeks for sensitivity changes. 
 
 From a trading perspective, I may also consider applying the binary options model to the live market to see how well the model does in practice. 
 
@@ -187,7 +187,7 @@ From a trading perspective, I may also consider applying the binary options mode
 
 I'd like to thank my Professor, [Sara Smiarowski](https://www.isenberg.umass.edu/people/sara-smiarowski), for introducing me to this topic. I'm very grateful for her guidance.
 
-If you have any comments, suggestions, or questions, feel free to reach out to me at gsokhin@umass.edu .
+If you have any comments, suggestions, or questions, feel free to reach out to me at gsokhin@umass.edu.
 
 
 
