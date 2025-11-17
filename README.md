@@ -82,19 +82,15 @@ Recall that for an option, there are two components for determining payoff:
 \
 Stock Price: $S$
 \
-Strike Price: $ S_k$ 
+Strike Price: $S_k$ 
 
 
 
 For a **call** option, the payoff is as follows:
-$$
-Payoff = max(0, S - S_k)
-$$
+$$Payoff = max(0, S - S_k)$$
 
 For a **put** option, the payoff is as follows:
-$$
-Payoff = max(0, S_k - S)
-$$
+$$Payoff = max(0, S_k - S)$$
 
 
 <p align="center">
