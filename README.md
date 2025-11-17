@@ -14,7 +14,7 @@ The **Binomial Model** provides a method to determine an option's fair price in 
 1. Beginning Asset Value ($S$)
 → The initial value of the underlying asset.
 
-2. Up Move Factor ()
+2. Up Move Factor (U)
 → The proportional gain when the asset price increases.
 → Represented as U.
 
@@ -29,7 +29,7 @@ The **Binomial Model** provides a method to determine an option's fair price in 
 → Guaranteed rate of return with no risk. 
 
 ### **Note** 
-Although it may seem intutive to consider the probability of the underlying asset going up or down, we'll later assert that the option's fair price is mutually exclusive due to abitrage reasons.  
+Although it may seem intuitive to consider the probability of the underlying asset rising or falling, we'll later argue that the option's fair price is mutually exclusive due to arbitrage considerations.  
 
 ## Forward Binary Tree
 Say the current stock price is P₀ at time T₀.
@@ -119,10 +119,10 @@ Where
 
 $$ p = \frac{e^{r \cdot Δt} - D}{U - D} $$
 
-Note that instead of the probabilities given P(U) or P(D), we use risk nuetral probability. This is because we want to ensure **no arbitrage** -- meaning there is no way to make a riskless profit by combining stocks and options. [^Further Info]
+Note that instead of the probabilities given, P(U) or P(D), we use risk-neutral probability. This is because we want to ensure **no arbitrage** -- meaning there is no way to make a riskless profit by combining stocks and options. [^Further Info]
 
 Although it may be complicated, it'll be easier to understand once broken down. 
-Inside the formula, it'll look identitcal as if you were to just compute regular expected value of the option, except we used risk nuetral probability instead of up and down probabilities.
+Inside the formula, it'll look identical as if you were to just compute regular expected value of the option, except we used risk nuetral probability instead of up and down probabilities.
 
 $$
 V_{current} = (p_{up} \cdot V_{\text{up}} + (1-p_{down}) \cdot V_{\text{down}})
