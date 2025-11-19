@@ -128,7 +128,7 @@ $$ p = \frac{e^{r \cdot Δt} - D}{U - D} $$
 Note that instead of the probabilities given, P(U) or P(D), we use risk-neutral probability. This is because we want to ensure **no arbitrage** -- meaning there is no way to make a riskless profit by combining stocks and options. [^Further Info]
 
 Although it may be complicated, it'll be easier to understand once broken down. 
-Inside the formula, it'll look identical as if you were to just compute regular expected value of the option, except we used risk nuetral probability instead of up and down probabilities.
+Inside the formula, it'll look identical as if you were to compute the regular expected value of the option, except we used risk-neutral probability instead of up and down probabilities.
 
 $$
 V_{current} = (p_{up} \cdot V_{\text{up}} + (1-p_{down}) \cdot V_{\text{down}})
@@ -176,10 +176,10 @@ Option Value: 7.19
 ```
 ## Backward Induction - American Options
 ### Key differences
-Whereas European options are only allowed to be exercised upon the date of expiration, American options can be exercised throughout its lifetime. Overall, this generally provides **flexibility** as the option can be exercised at any time to potentially achieve a greater profit (or loss).  
+Whereas European options are only allowed to be exercised upon the date of expiration, American options can be exercised throughout their lifetime. Overall, this generally provides **flexibility** as the option can be exercised at any time to potentially achieve a greater profit (or loss).  
 
 ### Calculations
-At each node at some **time T**, we ask one question: **What would the value of the option be if we excersiced it**? The immediate exercise value ($IEV_t$) answers that question. If you did exercise it at some time T, the immediate exercise value is simply the payoff you'd receive if you exercised the option right at that moment.
+At each node at some **time T**, we ask one question: **What would the value of the option be if we exercised it**? The immediate exercise value ($IEV_t$) answers that question. If you did exercise it at some time T, the immediate exercise value is simply the payoff you'd receive if you exercised the option right at that moment.
 
 For a **call** option, the payoff at time T is as follows: 
 $
@@ -191,7 +191,7 @@ $
 IEV_t  = max(S_k - S, 0)
 $
 
-Then there's the other possibility: **what if we did not excerise it**? Logically, its price would be **identical** to that of a European option, since at time T the option would **not** be excerised. We already know that value, the continuation value ($CV_t$), which is simply: 
+Then there's the other possibility: **what if we did not exercise it**? Logically, its price would be **identical** to that of a European option, since at time T the option would **not** be exercised. We already know that value, the continuation value ($CV_t$), which is simply: 
 
 $$
 CV_t = e^{-r \cdot Δt} \cdot (p \cdot V_{\text{up}} + (1-p) \cdot V_{\text{down}})
@@ -208,7 +208,7 @@ But deeper than that, choosing anything other than the max creates an arbitrage 
 
 #### Abritrage Example
 
-If $ IEV_t = 15 $ and $ CV_t = 20$ but the option is priced in at $15, an investor could buy it for $15 and hold it for a risk free gain to $20. This garenteed $5 profit voilates no arbitrage, so the option must be worth $20.
+If $ IEV_t = 15 $ and $ CV_t = 20$ but the option is priced in at $15, an investor could buy it for $15 and hold it for a risk-free gain to $20. This guaranteed $5 profit violates no-arbitrage, so the option must be worth $20.
 
 #### General Example
 Parameters:
@@ -263,7 +263,7 @@ European option = False (American Option)
             └── 26.87
 ```
 
-**European Option (For comparision)**
+**European Option (For comparison)**
 
 ```
  Option Value: 4.37
@@ -290,20 +290,20 @@ The **Binomial Model** combines two integral components of finance together -- t
 
 One of my biggest takeaways was the absence of upward and downward probabilities: **Regardless of the chances of the stock going up or down, the price of the option will be the same**. Another way to look at it is we're pricing the volatility of the underlying asset. Intuitively, it makes sense, since market makers need to be hedged against up or down movement -- they don't profit off of guessing price direction, but from ensuring a fair and riskless price.  [^Additional Resource]
 
-Another key insight was the concept of arbitrage; It gave me perspective on how options are priced in from a market makers standpoint. It also showed me how there is no *free lunch* in a free, efficient market. I'm curious to see how other instruments are priced in with arbitrage, and if there are any limitations to this approach. 
+Another key insight was the concept of arbitrage; It gave me perspective on how options are priced in from a market maker's standpoint. It also showed me how there is no *free lunch* in a free, efficient market. I'm curious to see how other instruments are priced in with arbitrage, and if there are any limitations to this approach. 
 
 
 ## Further Comments
 ### Outlook
-Since the [Black-Scholes](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model) model can be derived from the binary options model, I may consider tackling it in the future. I may also consider doing more complex operations, such adding the Greeks for sensitivity changes, or maybe a computational approach to determining the volitility, U. 
+Since the [Black-Scholes](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model) model can be derived from the binary options model, I may consider tackling it in the future. I may also consider doing more complex operations, such as adding the Greeks for sensitivity changes, or maybe a computational approach to determining the volatility, U. 
 
 From a trading perspective, I may also consider applying the binary options model to the live market to see how well the model does in practice. 
 
 ### Remarks
 
-I'd like to thank my finance professor, [Sara Smiarowski](https://www.isenberg.umass.edu/people/sara-smiarowski) , for introducing me to this topic. I'm very grateful for her guidance.
+I'd like to thank my finance professor, [Sara Smiarowski](https://www.isenberg.umass.edu/people/sara-smiarowski), for introducing me to this topic. I'm very grateful for her guidance.
 
-I'd also like to thank my statistics professor, [Mike Sullivan](https://www.umass.edu/mathematics-statistics/about/directory/mike-sullivan) , for not only deriving but explaining the mathmatical components behind the binomial model. I'm very grateful for his assistance. 
+I'd also like to thank my statistics professor, [Mike Sullivan](https://www.umass.edu/mathematics-statistics/about/directory/mike-sullivan), for not only deriving but explaining the mathematical components behind the binomial model. I'm very grateful for his assistance. 
 
 If you have any comments, suggestions, or questions, feel free to reach out to me at gsokhin@umass.edu.
 
