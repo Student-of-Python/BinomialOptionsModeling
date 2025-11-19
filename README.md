@@ -4,11 +4,21 @@
 
 **This is only for educational purposes, this is NOT financial advice**
 
-## Preview
+
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Core Concepts](#core-concepts)
+3. [Forward Binary Tree](#forward-binary-tree)
+4. [Backward Induction - European Options](#backward-induction---european-options)
+5. [Backward Induction - American Options](#backward-induction---american-options)
+6. [Conclusion and Takeaways](#conclusion-and-takeaways)
+7. [Further Comments](#further-comments)
+
+## Introduction
 The **Binomial Model** provides a method to determine an option's fair price in present value by projecting future price movements of an underlying asset over a discrete amount of time. In the simplest forms, this model only considers that the price of the underlying asset can only move in two directions -- up and down -- at a fixed magnitude.
 
 
-
+## Core Concepts
 ### 5 Key Components
 
 1. Beginning Asset Value ($S$)
@@ -72,7 +82,7 @@ If we set iterations = 2 and U = 1.1, D = 0.9, our tree looks like:
 
 ```
 
-## Backward Induction
+## Backward Induction - European Options
 
 At expiration, each **terminal node** has a payoff -- the value of the option at expiration. 
 Given these payoffs, we want to ask, what is the fair price of the option today? 
@@ -168,6 +178,116 @@ Option Value: 7.19
             └── 0.00
 
 ```
+## Backward Induction - American Options
+### Key differences
+Whereas European options are only allowed to be exercised upon the date of expiration, American options can be exercised throughout its lifetime. Overall, this generally provides **flexibility** as the option can be exercised at any time to potentially achieve a greater profit (or loss).  
+
+### Calculations
+At each node at some **time T**, we ask one question: **What would the value of the option be if we excersiced it**? The immediate exercise value ($IEV_t$) answers that question. If you did exercise it at some time T, the immediate exercise value is simply the payoff you'd receive if you exercised the option right at that moment.
+
+For a **call** option, the payoff at time T is as follows: 
+$
+IEV_t = max(0, S_t - S_k)
+$
+
+For a **put** option, the payoff at time T is as follows:
+$
+IEV_t  = max(S_k - S, 0)
+$
+
+Then there's the other possibility: **what if we did not excerise it**? Logically, its price would be **identical** to that of a European option, since at time T the option would **not** be excerised. We already know that value, the continuation value ($CV_t$), which is simply: 
+
+$$
+CV_t = e^{-r \cdot Δt} \cdot (p \cdot V_{\text{up}} + (1-p) \cdot V_{\text{down}})
+$$
+
+Now we're given two values to consider, the immediate exercise value and the continuation value. To determine the option's price at that price, we take the max of the two values:
+
+$$
+V_t = max(IET_t, CV_t) 
+$$
+
+At first glance, we take the max simply because a rational investor wants the higher payoff.
+But deeper than that, choosing anything other than the max creates an arbitrage opportunity.
+
+#### Abritrage Example
+
+If $ IEV_t = 15 $ and $ CV_t = 20$ but the option is priced in at $15, an investor could buy it for $15 and hold it for a risk free gain to $20. This garenteed $5 profit voilates no arbitrage, so the option must be worth $20.
+
+#### General Example
+Parameters:
+
+Iterations = 3
+
+U = 1.1, D = 0.9
+
+Risk-free rate = 0.1
+
+Strike = 102
+
+Call option = False (Put Option)
+
+European option = False (American Option)
+
+**Underlying Asset Price Action**
+```
+            ┌── 133.10
+        ┌── 121.00
+        │   └── 110.00
+    ┌── 110.00
+    │   │   ┌── 110.00
+    │   └── 100.00
+    │       └── 90.91
+  100.00
+    │       ┌── 110.00
+    │   ┌── 100.00
+    │   │   └── 90.91
+    └── 90.91
+        │   ┌── 90.91
+        └── 82.64
+            └── 75.13
+```
+**American Option** 
+```
+ Option Value: 5.19
+            ┌── 0.00
+        ┌── 0.00
+        │   └── 0.00
+    ┌── 1.61
+    │   │   ┌── 0.00
+    │   └── 4.23
+    │       └── 11.09
+   5.19
+    │       ┌── 0.00
+    │   ┌── 4.23
+    │   │   └── 11.09
+    └── 11.09
+        │   ┌── 11.09
+        └── 19.36
+            └── 26.87
+```
+
+**European Option (For comparision)**
+
+```
+ Option Value: 4.37
+
+            ┌── 0.00
+        ┌── 0.00
+        │   └── 0.00
+    ┌── 1.61
+    │   │   ┌── 0.00
+    │   └── 4.23
+    │       └── 11.09
+   4.37
+    │       ┌── 0.00
+    │   ┌── 4.23
+    │   │   └── 11.09
+    └── 8.94
+        │   ┌── 11.09
+        └── 16.84
+            └── 26.87
+```
 
 ## Conclusion and Takeaways
 The **Binomial Model** combines two integral components of finance together -- time value of money and risk neutrality -- to determine a fair price for an option.
@@ -179,13 +299,15 @@ Another key insight was the concept of arbitrage; It gave me perspective on how 
 
 ## Further Comments
 ### Outlook
-Since the [Black-Scholes](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model) model can be derived from the binary options model, I may consider tackling it in the future. I may also consider doing more complex operations, such as adding American Options or adding the Greeks for sensitivity changes. 
+Since the [Black-Scholes](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model) model can be derived from the binary options model, I may consider tackling it in the future. I may also consider doing more complex operations, such adding the Greeks for sensitivity changes, or maybe a computational approach to determining the volitility, U. 
 
 From a trading perspective, I may also consider applying the binary options model to the live market to see how well the model does in practice. 
 
 ### Remarks
 
-I'd like to thank my Professor, [Sara Smiarowski](https://www.isenberg.umass.edu/people/sara-smiarowski), for introducing me to this topic. I'm very grateful for her guidance.
+I'd like to thank my finance professor, [Sara Smiarowski](https://www.isenberg.umass.edu/people/sara-smiarowski) , for introducing me to this topic. I'm very grateful for her guidance.
+
+I'd also like to thank my statistics professor, [Mike Sullivan](https://www.umass.edu/mathematics-statistics/about/directory/mike-sullivan) , for not only deriving but explaining the mathmatical components behind the binomial model. I'm very grateful for his assistance. 
 
 If you have any comments, suggestions, or questions, feel free to reach out to me at gsokhin@umass.edu.
 

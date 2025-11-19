@@ -18,9 +18,10 @@ public class Main {
         double price_movement = 0.1; 
         int iterations = 3;
 
-        boolean call_option = true;
+        boolean call_option = false;
+        boolean european_option = false; 
         double strike_price = 102.0;
-        double risk_free_rate = 0.03;
+        double risk_free_rate = 0.1;
 
 
         Node root = new Node(current_stock_price);
@@ -28,11 +29,11 @@ public class Main {
         
         tree.add_layers();
         
-        BackwardInductionTree back_tree = new BackwardInductionTree(tree, risk_free_rate, call_option, strike_price);
+        BackwardInductionTree back_tree = new BackwardInductionTree(tree, risk_free_rate, call_option, european_option, strike_price);
 
         tree.printTree();
-
-        System.out.println("Option Value: " + String.format("%.2f",  back_tree.backwardInduction()));
+ 
+        System.out.println("\n Option Value: " + String.format("%.2f",  back_tree.get_fairprice()) + "\n");
 
         back_tree.printTree();
     }
