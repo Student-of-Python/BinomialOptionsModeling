@@ -182,14 +182,14 @@ Whereas European options are only allowed to be exercised upon the date of expir
 At each node at some **time T**, we ask one question: **What would the value of the option be if we exercised it**? The immediate exercise value ($IEV_t$) answers that question. If you did exercise it at some time T, the immediate exercise value is simply the payoff you'd receive if you exercised the option right at that moment.
 
 For a **call** option, the payoff at time T is as follows: 
-$
+$$
 IEV_t = max(0, S_t - S_k)
-$
+$$
 
 For a **put** option, the payoff at time T is as follows:
-$
+$$
 IEV_t  = max(S_k - S, 0)
-$
+$$
 
 Then there's the other possibility: **what if we did not exercise it**? Logically, its price would be **identical** to that of a European option, since at time T the option would **not** be exercised. We already know that value, the continuation value ($CV_t$), which is simply: 
 
@@ -208,7 +208,7 @@ But deeper than that, choosing anything other than the max creates an arbitrage 
 
 #### Abritrage Example
 
-If $ IEV_t = 15 $ and $ CV_t = 20$ but the option is priced in at $15, an investor could buy it for $15 and hold it for a risk-free gain to $20. This guaranteed $5 profit violates no-arbitrage, so the option must be worth $20.
+If $IEV_t = 15$ and $CV_t = 20$ but the option is priced in at $15, an investor could buy it for $15 and hold it for a risk-free gain to $20. This guaranteed $5 profit violates no-arbitrage, so the option must be worth $20.
 
 #### General Example
 Parameters:
