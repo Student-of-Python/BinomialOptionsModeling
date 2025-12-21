@@ -16,5 +16,7 @@ class Node:
         :param stockvalue: price of underlying asset at some time
         '''
         self.stock_value = stock_value if stock_value > 0 else 0
-        self.option_value = None
 
+        #Misc / To be computed
+        self.option_value = None
+        self.immediate_value = None

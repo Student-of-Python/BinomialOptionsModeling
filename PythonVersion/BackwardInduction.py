@@ -41,12 +41,20 @@ class BackwardInductionTree:
         :return: Computes payoff of the terminal nodes
         """
         for leaf in self.tree[-2**self.height:]:
-            if self.call_bool:
-                leaf.option_value = max(leaf.stock_value - self.strike,0)
-            else:
-                leaf.option_value = max(self.strike - leaf.stock_value, 0)
+            self.compute_payoff(leaf)
 
-    def backwardinduction(self):
+    def compute_payoff(self, leaf: Node) -> None:
+        """
+        :param Leaf: Leaf (For American Options, it would be any node to find the immediate payoff)
+        :return:
+        """
+        if self.call_bool:
+            leaf.option_value = max(leaf.stock_value - self.strike, 0)
+        else: # Put Option
+            leaf.option_value = max(0, self.strike - leaf.stock_value)
+
+
+    def backwardinduction(self) -> None:
         """
         :return:
         """
@@ -55,9 +63,18 @@ class BackwardInductionTree:
             parent = self.tree[i]
             left = self.tree[2 * i + 1]
             right = self.tree[2 * i + 2]
-            parent.option_value = math.exp(-self.risk_rate * self.delta_t) * (
-                    self.prob * right.option_value + (1 - self.prob) * left.option_value
-            )
+
+            discounted_price_value = math.exp(-self.risk_rate * self.delta_t) * (
+                        self.prob * right.option_value + (1 - self.prob) * left.option_value
+                )
+
+            if self.european_bool:
+                parent.option_value = discounted_price_value
+            else:
+                #American Options
+                self.compute_payoff(parent)
+                parent.option_value = max(parent.option_value, discounted_price_value)
+
 
     def __str__(self) -> str:
         """
@@ -85,6 +102,6 @@ class BackwardInductionTree:
 
 obj = PriceMovementTree(100 , 0.1, 3)
 print(str(obj))
-back = BackwardInductionTree(obj, 0.03,102)
+back = BackwardInductionTree(obj, 0.1,102,False,False)
 print(str(back))
 
