@@ -65,7 +65,7 @@ class PriceMovementTree:
             steps --> height
         """
         for i in range(self.steps):
-            yield [node.stock_value for node in self.tree[2**i-1: 2**(i+1) - 1]]
+            yield [round(node.stock_value,2) for node in self.tree[2**i-1: 2**(i+1) - 1]]
 
 
     def __str__(self) -> str:
@@ -82,6 +82,4 @@ class PriceMovementTree:
 
 obj = PriceMovementTree(100 , 0.1, 5)
 
-a = str(obj)
 
-print(a)
