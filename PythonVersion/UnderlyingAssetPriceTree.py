@@ -16,8 +16,7 @@ class PriceMovementTree:
         self.D = 1.0 / self.U
         self.steps = steps
 
-        self.tree = [Node(0)] * (2**(self.steps + 1) - 1)
-        self.tree[0] = Node(stock_value = current_price)
+        self.tree = [Node(current_price) for _ in range((2**(self.steps + 1) - 1))]
         self.mk_tree()
 
     def mk_tree(self, i: int = 0) -> None:
@@ -31,7 +30,7 @@ class PriceMovementTree:
         :return: Binomial Tree with price action
         """
         #Base Case: Outside of Bounds
-        if i > 2**((self.steps + 1) - 2):
+        if i*2 + 2 > len(self.tree):
             return
 
         #Recursive Case: Valid Index
@@ -47,6 +46,17 @@ class PriceMovementTree:
         self.mk_tree(2 * i + 1)
         self.mk_tree(2 * i + 2)
 
+
+    def get_height(self) -> int:
+        """
+        :return: Height of the tree
+        """
+        return self.steps
+
+
+
+    def get_tree(self):
+        return self.tree
 
     def level_order(self):
         """
@@ -64,8 +74,9 @@ class PriceMovementTree:
             nth Level: [2**(i) -1 : 2^(i + 1) - 1]
             steps --> height
         """
-        for i in range(self.steps):
+        for i in range(self.steps+1):
             yield [round(node.stock_value,2) for node in self.tree[2**i-1: 2**(i+1) - 1]]
+
 
 
     def __str__(self) -> str:
@@ -80,6 +91,6 @@ class PriceMovementTree:
             tree_str += f"{elem}\n"
         return tree_str
 
-obj = PriceMovementTree(100 , 0.1, 5)
+
 
 

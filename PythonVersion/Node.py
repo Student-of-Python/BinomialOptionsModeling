@@ -15,4 +15,6 @@ class Node:
         '''
         :param stockvalue: price of underlying asset at some time
         '''
-        self.stock_value = stock_value
+        self.stock_value = stock_value if stock_value > 0 else 0
+        self.payoff = None
+
