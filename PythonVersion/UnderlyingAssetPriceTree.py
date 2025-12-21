@@ -51,14 +51,17 @@ class PriceMovementTree:
         """
         :return: Height of the tree
         """
-        return self.steps
+        return self.steps + 1
 
 
 
     def get_tree(self):
         return self.tree
 
-    def level_order(self):
+
+
+
+    def __str__(self) -> str:
         """
         :return: Level Order of the tree
 
@@ -74,21 +77,9 @@ class PriceMovementTree:
             nth Level: [2**(i) -1 : 2^(i + 1) - 1]
             steps --> height
         """
-        for i in range(self.steps+1):
-            yield [round(node.stock_value,2) for node in self.tree[2**i-1: 2**(i+1) - 1]]
-
-
-
-    def __str__(self) -> str:
-        """
-        :return: String version of the tree
-        [a]
-        [b,c]
-        """
-        gen = self.level_order()
         tree_str = ""
-        for elem in gen:
-            tree_str += f"{elem}\n"
+        for i in range(self.steps + 1):
+            tree_str += " ".join([f"{node.stock_value:.2f}" for node in self.tree[2**i-1: 2**(i+1) - 1]]) + "\n"
         return tree_str
 
 

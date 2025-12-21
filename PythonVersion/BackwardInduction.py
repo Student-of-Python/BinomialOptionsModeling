@@ -1,9 +1,9 @@
 from UnderlyingAssetPriceTree import PriceMovementTree
 from typing import Union, Optional
 from Node import Node
-
+import math
 class BackwardInductionTree:
-    def __init__(self, MovementTree: PriceMovementTree,
+    def __init__(self, movement_tree: PriceMovementTree,
                  risk_free_rate: Union[float, int],
                  strike_price: Union[float, int],
                  call_option: Union[True, False] = True,
@@ -16,8 +16,7 @@ class BackwardInductionTree:
         :param European_option: European Option if true, American Option if false
         :param strike_price: strike price of the option
         """
-
-        self.tree = MovementTree.get_tree()
+        self.tree = movement_tree.get_tree()
         self.risk_rate = risk_free_rate
         self.strike = strike_price
 
@@ -27,22 +26,65 @@ class BackwardInductionTree:
         self.european_bool = bool(european_option)
 
         #Misc
-        self.height = MovementTree.get_height()
-
+        self.height = movement_tree.get_height()
+        self.delta_t = 1.0 / self.height
+        self.prob = (math.exp(self.risk_rate * self.delta_t) - movement_tree.D) / (movement_tree.U - movement_tree.D)
 
         self.compute_terminal_payoffs()
 
-        print([node.payoff for node in self.tree[-2**(self.height):]])
+        self.backwardinduction()
+
+
     def compute_terminal_payoffs(self) -> None:
         """
         Last 2^(n) elems are terminal nodes
+        :return: Computes payoff of the terminal nodes
+        """
+        for leaf in self.tree[-2**self.height:]:
+            if self.call_bool:
+                leaf.option_value = max(leaf.stock_value - self.strike,0)
+            else:
+                leaf.option_value = max(self.strike - leaf.stock_value, 0)
+
+    def backwardinduction(self):
+        """
         :return:
         """
-        for node in self.tree[-2**(self.height):]:
-            print(node.stock_value)
-            node.payoff = max(node.stock_value - self.strike,0)
+        last_parent = (len(self.tree) - 2) // 2
+        for i in range(last_parent, -1, -1):
+            parent = self.tree[i]
+            left = self.tree[2 * i + 1]
+            right = self.tree[2 * i + 2]
+            parent.option_value = math.exp(-self.risk_rate * self.delta_t) * (
+                    self.prob * right.option_value + (1 - self.prob) * left.option_value
+            )
+
+    def __str__(self) -> str:
+        """
+        :return: Level Order of the tree
+
+        [1,2,3,4,5,6,7]
+        [0,1,2,3,4,5,6]
+        Logic:
+            0th Level: [1] --> [0:1]
+
+            1st Level: [2,3] --> [1:3]
+
+            3rd Level: [4,5,6,7] --> [3 : 7]
+
+            nth Level: [2**(i) -1 : 2^(i + 1) - 1]
+            steps --> height
+        """
+        tree_str = ""
+        for i in range(self.height + 1):
+            tree_str += " ".join([f"{node.option_value:.2f}" for node in self.tree[2**i-1: 2**(i+1) - 1]]) + "\n"
+        return tree_str
+
+
+
 
 obj = PriceMovementTree(100 , 0.1, 3)
 print(str(obj))
 back = BackwardInductionTree(obj, 0.03,102)
+print(str(back))
 
