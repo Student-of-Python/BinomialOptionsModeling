@@ -1,7 +1,4 @@
-"""
-
-"""
-from typing import Optional, Union
+from typing import Optional, Union, Any
 from Node import Node
 
 class PriceMovementTree:
@@ -59,7 +56,9 @@ class PriceMovementTree:
         return self.tree
 
 
-
+    def get_attr(self, attr: str) -> Optional[Any, None]:
+        if hasattr(self, attr):
+            return getattr(self, attr)
 
     def __str__(self) -> str:
         """

@@ -19,4 +19,9 @@ class Node:
 
         #Misc / To be computed
         self.option_value = None
-        self.immediate_value = None
+
+        self.delta = None
+        self.gamma = None
+        self.theta = None
+
+

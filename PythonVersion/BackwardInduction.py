@@ -1,5 +1,5 @@
 from UnderlyingAssetPriceTree import PriceMovementTree
-from typing import Union, Optional
+from typing import Union, Optional, Any
 from Node import Node
 import math
 class BackwardInductionTree:
@@ -56,7 +56,8 @@ class BackwardInductionTree:
 
     def backwardinduction(self) -> None:
         """
-        :return:
+        :return: None
+        Backward Induction computes the option value at each time steps T
         """
         last_parent = (len(self.tree) - 2) // 2
         for i in range(last_parent, -1, -1):
@@ -75,6 +76,11 @@ class BackwardInductionTree:
                 self.compute_payoff(parent)
                 parent.option_value = max(parent.option_value, discounted_price_value)
 
+
+
+    def get_attr(self, attr: str) -> Optional[Any, None]:
+        if hasattr(self, attr):
+            return getattr(self, attr)
 
     def __str__(self) -> str:
         """
