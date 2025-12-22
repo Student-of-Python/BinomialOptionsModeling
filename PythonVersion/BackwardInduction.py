@@ -45,7 +45,7 @@ class BackwardInductionTree:
 
     def compute_payoff(self, leaf: Node) -> None:
         """
-        :param Leaf: Leaf (For American Options, it would be any node to find the immediate payoff)
+        :param leaf: Leaf (For American Options, it would be any node to find the immediate payoff)
         :return:
         """
         if self.call_bool:
@@ -78,7 +78,7 @@ class BackwardInductionTree:
 
 
 
-    def get_attr(self, attr: str) -> Optional[Any, None]:
+    def get_attr(self, attr: str) -> Optional[Any]:
         if hasattr(self, attr):
             return getattr(self, attr)
 
@@ -105,9 +105,4 @@ class BackwardInductionTree:
 
 
 
-
-obj = PriceMovementTree(100 , 0.1, 3)
-print(str(obj))
-back = BackwardInductionTree(obj, 0.1,102,False,False)
-print(str(back))
 

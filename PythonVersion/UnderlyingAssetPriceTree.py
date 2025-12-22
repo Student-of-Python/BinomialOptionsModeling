@@ -56,7 +56,7 @@ class PriceMovementTree:
         return self.tree
 
 
-    def get_attr(self, attr: str) -> Optional[Any, None]:
+    def get_attr(self, attr: str) -> Optional[Any]:
         if hasattr(self, attr):
             return getattr(self, attr)
 
