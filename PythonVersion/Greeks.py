@@ -1,5 +1,3 @@
-from unittest.mock import right
-
 from UnderlyingAssetPriceTree import PriceMovementTree
 from BackwardInduction import BackwardInductionTree
 from typing import Union, Optional, Callable
@@ -7,12 +5,10 @@ from Node import Node
 
 
 class Greeks:
-    def __init__(self, price_movement: PriceMovementTree , induction_tree: BackwardInductionTree) -> None:
+    def __init__(self, induction_tree: BackwardInductionTree) -> None:
         """
-        :param price_movement: Price movement tree of the underlying asset movement
         :param induction_tree: Induction
         """
-        self.p_tree = price_movement.tree
         self.i_tree = induction_tree.tree
 
         #Misc
@@ -20,11 +16,16 @@ class Greeks:
         self.strike = induction_tree.get_attr("strike")
         self.height = induction_tree.get_attr("height")
 
-        self.init_delta()
+        self.compute_greeks()
 
-    def init_delta(self):
+
+    def apply_delta(self, parent: Node, right: Optional[Node] , left: Optional[Node]) -> None:
         """
-        :return:
+        :param parent:
+        :param right:
+        :param left:
+        :return: In-place calculation
+
         Delta = Change in Option Value  / Change in Stock Price
         --> V_U - V_D / S_U - S_D
 
@@ -33,33 +34,41 @@ class Greeks:
         Delta = 0 --> OTM
         Delta = 0.5 --> ATM
         """
-        #Compute Terminal Delta
-        self.apply_terminal_func(self.terminal_delta)
-
-        last_parent_index = (len(self.i_tree) - 2) // 2
-        for i in range(last_parent_index, -1, -1):
-            parent = self.i_tree[i]
-            left = self.i_tree[i * 2 + 1]
-            right = self.i_tree[i * 2 + 2]
+        if not right or not left:
+            #leaf Node
+            delta = 1 if (parent.stock_value > self.strike) else 0 if (parent.stock_value < self.strike) else 0.5
+            if not self.call_option:
+                delta = -delta
+            parent.delta = delta
+            return
+        else:
             parent.delta = (right.option_value - left.option_value) / (right.stock_value - left.stock_value)
+            return
 
-
-    def apply_terminal_func(self, func: Callable) -> None:
-        for leaf in self.i_tree[-2**(self.height-1):]:
-            func(leaf)
-
-
-
-    def terminal_delta(self, leaf: Node) -> None:
+    def apply_gamma(self, parent: Node, right: Optional[Node] , left: Optional[Node]):
         """
-        :param leaf: Terminal Node
-        :return: None; Computes Delta for Node obj.
+        :param parent:
+        :param right:
+        :param left:
+        :return:
         """
-        delta = 1 if (leaf.stock_value > self.strike) else 0 if (leaf.stock_value < self.strike) else 0.5
-        if not self.call_option:
-            delta = -delta
+        pass
 
-        leaf.delta = delta
+
+    def compute_greeks(self) -> None:
+        """
+        :return:
+
+        """
+
+        for i in range(len(self.i_tree) - 1, -1, -1): #O(N) time with 2^height - 1 elems :(
+            parent = self.i_tree[i]
+            right = self.i_tree[2 * i + 2] if 2 * i + 2 < len(self.i_tree) - 1 else None
+            left = self.i_tree[2*i + 1] if 2*i + 1 < len(self.i_tree) - 1 else None
+            self.apply_delta(parent,right, left)
+
+
+
 
 
     def __str__(self) -> str:
@@ -77,7 +86,7 @@ obj = PriceMovementTree(100 , 0.1, 3)
 print(str(obj))
 back = BackwardInductionTree(obj, 0.1,102,True,False)
 print(str(back))
-greeks = Greeks(obj, back)
+greeks = Greeks(back)
 print(str(greeks))
 
 
