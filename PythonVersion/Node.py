@@ -24,5 +24,6 @@ class Node:
         self.gamma = None
         self.theta = None
         self.vega = None
+        self.rho = None
 
 

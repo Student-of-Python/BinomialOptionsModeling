@@ -14,6 +14,7 @@ class Greeks:
         self.i_tree = induction_tree.tree
         self.p_tree = price_tree
         self.vega_epsilon = 0.01
+        self.rho_epsilon = 0.01
 
         #Misc
         self.call_option = bool(induction_tree.get_attr("call_bool"))
@@ -56,15 +57,6 @@ class Greeks:
         else:
             parent.delta = (right.option_value - left.option_value) / (right.stock_value - left.stock_value)
             return
-
-    def apply_vega(self) -> None:
-        """
-        :return:
-        """
-        vega_tree_plus = self.vega_option_tree(self.vega_epsilon)
-        vega_tree_minus = self.vega_option_tree(-self.vega_epsilon)
-        self.i_tree[0].vega = (vega_tree_plus[0].option_value - vega_tree_minus[0].option_value) / (
-                    2 * self.vega_epsilon)
 
     def apply_gamma(self, parent: Node, right: Optional[Node] , left: Optional[Node]):
         """
@@ -118,7 +110,23 @@ class Greeks:
         else:
             parent.theta = "--"
 
+    def apply_vega(self) -> None:
+        """
+        :return:
+        """
+        vega_tree_plus = self.vega_option_tree(self.vega_epsilon)
+        vega_tree_minus = self.vega_option_tree(-self.vega_epsilon)
+        self.i_tree[0].vega = (vega_tree_plus[0].option_value - vega_tree_minus[0].option_value) / (
+                    2 * self.vega_epsilon)
 
+    def apply_rho(self) -> None:
+        """
+        :return:
+        """
+        rho_tree_plus = self.rho_option_tree(self.rho_epsilon)
+        rho_tree_minus = self.rho_option_tree(-self.rho_epsilon)
+        self.i_tree[0].rho = (rho_tree_plus[0].option_value - rho_tree_minus[0].option_value) / (
+                2 * self.rho_epsilon)
 
 
     def vega_option_tree(self, epsilon: Union[float, int]) -> List[Union[float,int]]:
@@ -129,9 +137,23 @@ class Greeks:
         s_dev = (math.log(self.U) / math.sqrt(self.delta_t)) + epsilon
         u_vega = math.exp(s_dev * math.sqrt(self.delta_t))
 
-        vega_tree = PriceMovementTree(self.p_tree.price, u_vega, self.height - 1)
+        price_tree = PriceMovementTree(self.p_tree.price, u_vega, self.height - 1)
 
-        option_tree = BackwardInductionTree(vega_tree, self.risk_rate, self.strike, self.call_option,
+        option_tree = BackwardInductionTree(price_tree, self.risk_rate, self.strike, self.call_option,
+                                                 self.type)
+
+        return option_tree.tree
+
+    def rho_option_tree(self, epsilon: Union[float, int]) -> List[Union[float,int]]:
+        """
+        :param epsilon:
+        :return:
+        """
+        risk_free_rate = self.risk_rate + epsilon
+
+        price_tree = PriceMovementTree(self.p_tree.price, self.U, self.height - 1)
+
+        option_tree = BackwardInductionTree(price_tree, risk_free_rate, self.strike, self.call_option,
                                                  self.type)
 
         return option_tree.tree
@@ -146,6 +168,7 @@ class Greeks:
         :return:
         """
         self.apply_vega()
+        self.apply_rho()
         for i in range(len(self.i_tree) - 1, -1, -1): #O(N) time with 2^height - 1 elems :(
             parent = self.i_tree[i]
             right = self.i_tree[2 * i + 2] if 2 * i + 2 < len(self.i_tree) - 1 else None
@@ -166,7 +189,7 @@ class Greeks:
         """
         tree_str = ""
         for i in range(self.height + 1):
-            tree_str += " ".join([f"{node.vega}" for node in self.i_tree[2**i-1: 2**(i+1) - 1]]) + "\n"
+            tree_str += " ".join([f"{node.rho}" for node in self.i_tree[2**i-1: 2**(i+1) - 1]]) + "\n"
         return tree_str
 
 
