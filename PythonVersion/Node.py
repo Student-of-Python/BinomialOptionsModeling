@@ -23,5 +23,6 @@ class Node:
         self.delta = None
         self.gamma = None
         self.theta = None
+        self.vega = None
 
 

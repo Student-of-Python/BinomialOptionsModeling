@@ -1,25 +1,31 @@
 from UnderlyingAssetPriceTree import PriceMovementTree
 from BackwardInduction import BackwardInductionTree
-from typing import Union, Optional, Callable
+from typing import Union, Optional, Callable, List
 from Node import Node
 import math
 
 
 class Greeks:
-    def __init__(self, induction_tree: BackwardInductionTree) -> None:
+
+    def __init__(self, induction_tree: BackwardInductionTree, price_tree: PriceMovementTree) -> None:
         """
         :param induction_tree: Induction
         """
         self.i_tree = induction_tree.tree
+        self.p_tree = price_tree
+        self.vega_epsilon = 0.01
 
         #Misc
         self.call_option = bool(induction_tree.get_attr("call_bool"))
         self.strike = induction_tree.get_attr("strike")
         self.height = induction_tree.get_attr("height")
 
-        self.delta_t = induction_tree.get_attr("delta_t")
+        self.type = induction_tree.get_attr("european_option")
         self.risk_rate  = induction_tree.get_attr("risk_rate")
+        self.delta_t = induction_tree.get_attr("delta_t")
         self.prob = induction_tree.get_attr("prob")
+        self.U = price_tree.get_attr("U")
+
 
         self.compute_greeks()
 
@@ -51,6 +57,15 @@ class Greeks:
             parent.delta = (right.option_value - left.option_value) / (right.stock_value - left.stock_value)
             return
 
+    def apply_vega(self) -> None:
+        """
+        :return:
+        """
+        vega_tree_plus = self.vega_option_tree(self.vega_epsilon)
+        vega_tree_minus = self.vega_option_tree(-self.vega_epsilon)
+        self.i_tree[0].vega = (vega_tree_plus[0].option_value - vega_tree_minus[0].option_value) / (
+                    2 * self.vega_epsilon)
+
     def apply_gamma(self, parent: Node, right: Optional[Node] , left: Optional[Node]):
         """
         :param parent: parent Node or leaf node
@@ -68,7 +83,6 @@ class Greeks:
         (ITM, OTM delta is solidified, with inf at ATM since it switches from 0-1 in instantly)
         """
 
-
         if not right or not left:
             # leaf Node
 
@@ -80,11 +94,10 @@ class Greeks:
             parent.gamma = (right.delta - left.delta) / (right.stock_value - left.stock_value)
             return
 
-    def apply_theta(self, parent: Node, right: Optional[Node] , left: Optional[Node], i: int):
+    def apply_theta(self, parent: Node, i: int):
         """
         :param parent: parent Node or leaf node
-        :param right: Right node (If applicable)
-        :param left: Left node (If applicable)
+        :param i: index of the parent node
         :return: None; In-place calculation
 
         Notes:
@@ -106,11 +119,33 @@ class Greeks:
             parent.theta = "--"
 
 
+
+
+    def vega_option_tree(self, epsilon: Union[float, int]) -> List[Union[float,int]]:
+        """
+        :param epsilon:
+        :return:
+        """
+        s_dev = (math.log(self.U) / math.sqrt(self.delta_t)) + epsilon
+        u_vega = math.exp(s_dev * math.sqrt(self.delta_t))
+
+        vega_tree = PriceMovementTree(self.p_tree.price, u_vega, self.height - 1)
+
+        option_tree = BackwardInductionTree(vega_tree, self.risk_rate, self.strike, self.call_option,
+                                                 self.type)
+
+        return option_tree.tree
+
+
+
+
+
+
     def compute_greeks(self) -> None:
         """
         :return:
         """
-
+        self.apply_vega()
         for i in range(len(self.i_tree) - 1, -1, -1): #O(N) time with 2^height - 1 elems :(
             parent = self.i_tree[i]
             right = self.i_tree[2 * i + 2] if 2 * i + 2 < len(self.i_tree) - 1 else None
@@ -119,7 +154,8 @@ class Greeks:
             #Apply functions
             self.apply_delta(parent,right, left)
             self.apply_gamma(parent, right, left)
-            self.apply_theta(parent, right, left, i)
+            self.apply_theta(parent, i)
+
 
 
 
@@ -130,7 +166,7 @@ class Greeks:
         """
         tree_str = ""
         for i in range(self.height + 1):
-            tree_str += " ".join([f"{node.theta}" for node in self.i_tree[2**i-1: 2**(i+1) - 1]]) + "\n"
+            tree_str += " ".join([f"{node.vega}" for node in self.i_tree[2**i-1: 2**(i+1) - 1]]) + "\n"
         return tree_str
 
 
@@ -138,7 +174,7 @@ obj = PriceMovementTree(100 , 0.1, 5)
 print(str(obj))
 back = BackwardInductionTree(obj, 0.1,102,True,False)
 print(str(back))
-greeks = Greeks(back)
+greeks = Greeks(back, obj)
 print(str(greeks))
 
 

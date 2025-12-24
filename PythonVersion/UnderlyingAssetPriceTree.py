@@ -1,5 +1,6 @@
 from typing import Optional, Union, Any
 from Node import Node
+import math
 
 class PriceMovementTree:
     def __init__(self, current_price: Union[float,int], U: Union[int, float], steps: int = 5):
@@ -12,9 +13,13 @@ class PriceMovementTree:
         self.U = 1 + U
         self.D = 1.0 / self.U
         self.steps = steps
+        self.delta_t = 1.0 / (self.steps + 1)
 
         self.tree = [Node(current_price) for _ in range((2**(self.steps + 1) - 1))]
         self.mk_tree()
+
+
+
 
     def mk_tree(self, i: int = 0) -> None:
         """
@@ -23,7 +28,7 @@ class PriceMovementTree:
         left node = list[2*i + 1]
         right node = list[2*i + 2]
 
-        :param root: root index of tree
+        :param i:  index of tree
         :return: Binomial Tree with price action
         """
         #Base Case: Outside of Bounds
