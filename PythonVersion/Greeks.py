@@ -2,6 +2,7 @@ from UnderlyingAssetPriceTree import PriceMovementTree
 from BackwardInduction import BackwardInductionTree
 from typing import Union, Optional, Callable
 from Node import Node
+import math
 
 
 class Greeks:
@@ -15,6 +16,10 @@ class Greeks:
         self.call_option = bool(induction_tree.get_attr("call_bool"))
         self.strike = induction_tree.get_attr("strike")
         self.height = induction_tree.get_attr("height")
+
+        self.delta_t = induction_tree.get_attr("delta_t")
+        self.risk_rate  = induction_tree.get_attr("risk_rate")
+        self.prob = induction_tree.get_attr("prob")
 
         self.compute_greeks()
 
@@ -67,14 +72,38 @@ class Greeks:
         if not right or not left:
             # leaf Node
 
-            #TODO: Gamma behaves weirdly around expiration; should I omit Gamma from last two levels?
+            #NOTE: Gamma behaves weirdly around expiration; should I omit Gamma from last two levels?
             gamma = 0 if (parent.delta != self.strike) else -1
             parent.gamma = gamma
             return
         else:
-
             parent.gamma = (right.delta - left.delta) / (right.stock_value - left.stock_value)
             return
+
+    def apply_theta(self, parent: Node, right: Optional[Node] , left: Optional[Node], i: int):
+        """
+        :param parent: parent Node or leaf node
+        :param right: Right node (If applicable)
+        :param left: Left node (If applicable)
+        :return: None; In-place calculation
+
+        Notes:
+        Theta is how much value time has on an option;
+        more specifically, if price stays the same, but we move the option forward in time,
+        how much will the price change?
+
+        Theta = (V_Expected - V_Now) / Change in time
+        V_expected = mid two steps ahead
+        At Expiration Theta = 0, meaning no uncertainty.
+        """
+
+        #NOTE: Is this the correct implementation of theta?
+        mid = 2*(2*i+1) + 2 #Middle Node by left then right traversal
+        if mid < len(self.i_tree):
+            parent.theta = (self.i_tree[mid].option_value - parent.option_value) / (2 * self.delta_t)
+            return
+        else:
+            parent.theta = "--"
 
 
     def compute_greeks(self) -> None:
@@ -90,6 +119,7 @@ class Greeks:
             #Apply functions
             self.apply_delta(parent,right, left)
             self.apply_gamma(parent, right, left)
+            self.apply_theta(parent, right, left, i)
 
 
 
@@ -100,11 +130,11 @@ class Greeks:
         """
         tree_str = ""
         for i in range(self.height + 1):
-            tree_str += " ".join([f"{node.gamma:.2f}" for node in self.i_tree[2**i-1: 2**(i+1) - 1]]) + "\n"
+            tree_str += " ".join([f"{node.theta}" for node in self.i_tree[2**i-1: 2**(i+1) - 1]]) + "\n"
         return tree_str
 
 
-obj = PriceMovementTree(100 , 0.1, 3)
+obj = PriceMovementTree(100 , 0.1, 5)
 print(str(obj))
 back = BackwardInductionTree(obj, 0.1,102,True,False)
 print(str(back))
