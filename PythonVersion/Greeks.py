@@ -7,7 +7,7 @@ import math
 
 class Greeks:
 
-    def __init__(self, induction_tree: BackwardInductionTree, price_tree: PriceMovementTree) -> None:
+    def __init__(self, induction_tree: BackwardInductionTree, price_tree: PriceMovementTree, **kwargs) -> None:
         """
         :param induction_tree: Induction
         """
@@ -27,6 +27,8 @@ class Greeks:
         self.prob = induction_tree.get_attr("prob")
         self.U = price_tree.get_attr("U")
 
+        #Format Spec.
+        self.format_spec = kwargs.get("format_spec" , "delta")
 
         self.compute_greeks()
 
@@ -192,13 +194,30 @@ class Greeks:
             tree_str += " ".join([f"{node.rho}" for node in self.i_tree[2**i-1: 2**(i+1) - 1]]) + "\n"
         return tree_str
 
+    def printTree(self, i: int, prefix: str, isLeft: bool) -> None:
+        """
+        :param node:
+        :param prefix:
+        :param isLeft:
+        :return:
+        """
+        if i > len(self.i_tree) - 1:
+            return
+
+        self.printTree(i*2 + 2,prefix + ("│   " if isLeft else "    "), False )
+        print(prefix + ("└── " if isLeft else "┌── ") + f"{self.i_tree[i]:{self.format_spec}}")
+
+        self.printTree(i*2 + 1, prefix + ("    " if isLeft else "│   "), True)
+
+
+
 
 obj = PriceMovementTree(100 , 0.1, 5)
 print(str(obj))
 back = BackwardInductionTree(obj, 0.1,102,True,False)
 print(str(back))
 greeks = Greeks(back, obj)
-print(str(greeks))
+greeks.printTree(0,"", True)
 
 
 

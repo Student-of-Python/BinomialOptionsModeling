@@ -8,6 +8,7 @@ class BackwardInductionTree:
                  strike_price: Union[float, int],
                  call_option: Union[True, False] = True,
                  european_option: Union[True, False] = True,
+                 **kwargs
                  ):
         """
         :param MovementTree: Price Action Movement Tree
@@ -31,6 +32,8 @@ class BackwardInductionTree:
         self.prob = (math.exp(self.risk_rate * self.delta_t) - movement_tree.D) / (movement_tree.U - movement_tree.D)
 
         self.compute_terminal_payoffs()
+
+        self.format_spec = kwargs.get("format_spec", "option_value")
 
         self.backwardinduction()
 
@@ -81,6 +84,23 @@ class BackwardInductionTree:
     def get_attr(self, attr: str) -> Optional[Any]:
         if hasattr(self, attr):
             return getattr(self, attr)
+
+    def printTree(self, i: int, prefix: str, isLeft: bool) -> None:
+        """
+        :param node:
+        :param prefix:
+        :param isLeft:
+        :return:
+        """
+        if i > len(self.tree) - 1:
+            return
+
+        self.printTree(i*2 + 2,prefix + ("│   " if isLeft else "    "), False )
+        print(prefix + ("└── " if isLeft else "┌── ") + f"{self.tree[i]:{self.format_spec}}")
+
+        self.printTree(i*2 + 1, prefix + ("    " if isLeft else "│   "), True)
+
+
 
     def __str__(self) -> str:
         """

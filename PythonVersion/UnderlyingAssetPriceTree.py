@@ -3,7 +3,7 @@ from Node import Node
 import math
 
 class PriceMovementTree:
-    def __init__(self, current_price: Union[float,int], U: Union[int, float], steps: int = 5):
+    def __init__(self, current_price: Union[float,int], U: Union[int, float], steps: int = 5, **kwargs):
         """
         :param current_price: current price of the underlying asset
         :param U: Magnitude of upward or downward movement (as a decimal)
@@ -17,6 +17,8 @@ class PriceMovementTree:
 
         self.tree = [Node(current_price) for _ in range((2**(self.steps + 1) - 1))]
         self.mk_tree()
+
+        self.format_spec = kwargs.get("format_spec", "option_value")
 
 
 
@@ -64,6 +66,24 @@ class PriceMovementTree:
     def get_attr(self, attr: str) -> Optional[Any]:
         if hasattr(self, attr):
             return getattr(self, attr)
+
+
+    def printTree(self, i: int, prefix: str, isLeft: bool) -> None:
+        """
+        :param node:
+        :param prefix:
+        :param isLeft:
+        :return:
+        """
+        if i > len(self.tree) - 1:
+            return
+
+        self.printTree(i*2 + 2,prefix + ("│   " if isLeft else "    "), False )
+        print(prefix + ("└── " if isLeft else "┌── ") + f"{self.tree[i]:{self.format_spec}}")
+
+        self.printTree(i*2 + 1, prefix + ("    " if isLeft else "│   "), True)
+
+
 
     def __str__(self) -> str:
         """
