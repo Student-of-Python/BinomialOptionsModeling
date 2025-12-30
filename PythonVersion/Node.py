@@ -36,7 +36,6 @@ class Node:
         :param format_spec: Any of the Attributes
         :return:
         """
-
         if not format_spec:
             return str(self)
 

@@ -11,8 +11,9 @@
 3. [Forward Binary Tree](#forward-binary-tree)
 4. [Backward Induction - European Options](#backward-induction---european-options)
 5. [Backward Induction - American Options](#backward-induction---american-options)
-6. [Conclusion and Takeaways](#conclusion-and-takeaways)
-7. [Further Comments](#further-comments)
+6. [The Greeks](#the-greeks)
+7. [Conclusion and Takeaways](#conclusion-and-takeaways)
+8. [Further Comments](#further-comments)
 
 ## Introduction
 The **Binomial Model** provides a method to determine an option's fair price in present value by projecting future price movements of an underlying asset over a discrete amount of time. In the simplest forms, this model only considers that the price of the underlying asset can only move in two directions -- up and down -- at a fixed magnitude.
@@ -123,7 +124,7 @@ Where
 * $Δt$ is the time between steps
 * $p$ is the risk-neutral probability
 
-$$ p = \frac{e^{r \cdot Δt} - D}{U - D} $$
+$$ p = \frac{e^{r \cdot \Delta t} - D}{U - D} $$
 
 Note that instead of the probabilities given, P(U) or P(D), we use risk-neutral probability. This is because we want to ensure **no arbitrage** -- meaning there is no way to make a riskless profit by combining stocks and options. [^Further Info]
 
@@ -276,6 +277,32 @@ European option = False (American Option)
         └── 16.84
             └── 26.87
 ```
+
+## The Greeks
+
+### Delta
+#### What is it?
+Delta measures how much the option value will change given the underlying asset's price also changes. It answers the question of how sensitive the option is to the overall movement of the underlying .
+
+
+#### How do we derive it? 
+Intuitively, the formula can be seen as such:
+
+$$ \Delta = \frac{V_{u} - V_d}{S_u - S_d} $$
+
+Or simply
+
+$$ \Delta = \frac{\partial V}{\partial S} $$
+
+At terminal nodes, delta is undefined  
+
+#### What are the applications?
+
+
+
+#### Example:
+
+
 
 ## Conclusion and Takeaways
 The **Binomial Model** combines two integral components of finance together -- time value of money and risk neutrality -- to determine a fair price for an option.

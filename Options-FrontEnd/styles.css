@@ -1,1 +1,56 @@
 @import "tailwindcss";
+
+h1 {
+    @apply text-6xl font-semibold tracking-tight text-zinc-100 ;
+}
+
+h2 {
+    @apply text-3xl font-medium text-zinc-200;
+}
+
+p {
+    @apply text-lg text-zinc-400 leading-relaxed mt-1;
+}
+
+span {
+    @apply font-mono text-yellow-400;
+}
+
+body {
+    @apply bg-gradient-to-br from-black via-zinc-950 to-black;
+}
+
+main {
+    @apply relative min-h-screen max-w-5xl mx-auto px-8 py-16 text-zinc-300;
+}
+
+.button {
+    @apply text-zinc-400 px-6 py-3 rounded-lg border border-zinc-600 hover:bg-zinc-800 transition cursor-pointer;
+}
+
+@layer components {
+  .node {
+    @apply w-24 h-24 m-4 rounded-full 
+           bg-zinc-900 border border-zinc-700
+           flex flex-col items-center justify-center
+           text-sm font-medium text-zinc-100
+           shadow-lg whitespace-nowrap;
+  }
+
+  .node span {
+    @apply leading-none;}
+
+
+}
+
+.node-up {
+@apply border-green-500/50 text-blue-400;
+}
+
+.node-down {
+@apply border-red-500/50 text-red-400;
+}
+
+.node-active {
+@apply ring-2 ring-blue-400 shadow-[0_0_12px_rgba(234,179,8,0.4)];
+}
