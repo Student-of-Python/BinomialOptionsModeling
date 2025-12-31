@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Gleb Sokhin" />
+  <title>Binomial Options | Demo</title>
+
+  <!-- Styles -->
+  <link href="styles.css" rel="stylesheet" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+</head>
+
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-zinc-900 text-zinc-100 font-sans">
+
+<!-- NAV -->
+<header class="p-6 border-b border-zinc-800">
+  <nav aria-label="primary-nav">
+    <ul class="flex gap-10 text-sm tracking-wide justify-center text-zinc-400">
+      <li><a href="index.html" class="hover:text-white">Home</a></li>
+      <li><a href="binomialoptions.html" class="hover:text-white">Binomial Options</a></li>
+      <li><a href="binomialoptionsdemo.html" class="text-white">Demo</a></li>
+      <li><a href="#" class="hover:text-white">Black-Scholes</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-16">
+
+  <!-- TITLE -->
+  <section class="mb-16 text-center">
+    <h1 class="text-5xl font-semibold tracking-tight mb-4">
+      Binomial Options Demo
+    </h1>
+    <p class="text-zinc-400 max-w-3xl mx-auto">
+      Interactive pricing engine for European and American options using
+      the binomial tree model.
+    </p>
+  </section>
+
+  <!-- CONTROLS -->
+  <section class="mb-20">
+    <h2 class="text-2xl font-medium mb-6">Parameters</h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+
+      <div class="flex flex-col gap-1">
+        <label class="text-xs text-zinc-400">Underlying Price</label>
+        <input id="current_price" type="number" value="100" class="input" />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-xs text-zinc-400">Strike</label>
+        <input id="strike" type="number" value="102" class="input" />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-xs text-zinc-400">Risk-Free Rate</label>
+        <input id="risk_rate" type="number" step="0.01" value="0.03" class="input" />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-xs text-zinc-400">Up Factor (U)</label>
+        <input id="U" type="number" step="0.01" value="1.1" class="input" />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-xs text-zinc-400">Steps</label>
+        <input id="steps" type="number" value="2" min="1" class="input" />
+      </div>
+
+    </div>
+
+    <!-- TOGGLES -->
+    <div class="flex gap-10 mt-8 text-sm text-zinc-300">
+
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input id="call_bool" type="checkbox" checked />
+        Call Option
+      </label>
+
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input id="european_bool" type="checkbox" checked />
+        European Option
+      </label>
+
+    </div>
+  </section>
+
+  <!-- TREE OUTPUT -->
+  <section>
+    <h2 class="text-2xl font-medium mb-6">Tree Visualization</h2>
+
+    <div
+      id="tree"
+      class="flex flex-col items-center gap-6 p-8 rounded-xl
+             bg-zinc-900/40 border border-zinc-800"
+    >
+      <!-- JS renders tree here -->
+      <p class="text-zinc-500 text-sm">
+        Adjust parameters to generate the tree.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- SCRIPT -->
+<script type="module" src="demo.js"></script>
+
+</body>
+</html>
