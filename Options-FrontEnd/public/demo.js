@@ -74,7 +74,8 @@ function renderTree(treeType) {
         const depth = Math.floor(Math.log2(i + 1));
 
         const node = document.createElement("div");
-        node.className = "node";
+        // mark runtime-created nodes so CSS can keep them hidden until animated
+        node.className = "node dynamic";
         node.textContent = nodeObj.toString();
         node.dataset.index = i;
         node.dataset.depth = depth;
@@ -171,7 +172,7 @@ function postResult(finalTree) {
 
     // Option value (headline)
     document.getElementById("results_option_value").textContent =
-        root.option_value.toFixed(4);
+        `$${root.option_value.toFixed(2)}`;
 
     const greeks = [
         ["delta", "Delta"],

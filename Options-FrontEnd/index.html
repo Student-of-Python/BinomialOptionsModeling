@@ -11,13 +11,14 @@
 
 <body>
 
-  <header class="p-6">
-    <nav aria-label="prime-nav">
-      <ul class="flex gap-10 text-sm tracking-wide justify-center">
-        <li><a href = "index.html" class="cursor-pointer hover:text-white">Home</a></li>
-        <li><a href = "binomialoptions.html" class="cursor-pointer hover:text-white">Binomial Options</a></li>
-        <li><a href = "binomialoptionsdemo.html" class="cursor-pointer hover:text-white">Binomial Options Demo </a></li>
-        <li><a href = "" class="cursor-pointer hover:text-white"> Black Scholes Options </a></li>
+  <header class="border-b border-zinc-800/50 backdrop-blur sticky top-0 z-40">
+    <nav aria-label="primary-nav" class="max-w-6xl mx-auto px-8 py-5">
+      <ul class="flex gap-8 text-sm tracking-wide justify-center text-zinc-400">
+        <li><a href="index.html" class="text-emerald-400">Home</a></li>
+        <li><a href="binomialoptions.html" class="hover:text-white transition">Binomial Options Theory</a></li>
+        <li><a href = "greeks.html" class = "hover:text-white transition">The Greeks</a></li>
+        <li><a href="binomialoptionsdemo.html" class="hover:text-white transition">Demo</a></li>
+        <li><a href="#" class="hover:text-white transition">Black–Scholes Options</a></li>
       </ul>
     </nav>
   </header>
@@ -59,6 +60,27 @@
     </section>
 
   </main>
+
+  <footer class="border-t border-zinc-800/50 mt-20 bg-zinc-900/30">
+    <div class="max-w-6xl mx-auto px-8 py-12 flex flex-col sm:flex-row items-center justify-between gap-8">
+      <div class="flex flex-col items-center sm:items-start gap-4">
+        <div class="text-sm text-zinc-400 tracking-wide">
+          © 2026 Gleb Sokhin
+        </div>
+        <div class="flex gap-4">
+          <a href="https://glebquant.netlify.app/" target="_blank" class="transition hover:opacity-80"><img src="public/img/sigmaicon.png" width="50px" alt="Portfolio"></a>
+          <a href="https://www.linkedin.com/in/gleb-sokhin/" target="_blank" class="transition hover:opacity-80"><img src="public/img/linkedinlogo.png" width="50px" alt="LinkedIn"></a>
+          <a href="https://github.com/Student-of-Python" target="_blank" class="transition hover:opacity-80"><img src="public/img/githublogo.png" width="50px" alt="GitHub"></a>
+        </div>
+      </div>
+        
+      <nav class="flex gap-6 text-sm tracking-wide text-zinc-400">
+        <a href="index.html" class="text-emerald-400">Home</a>
+        <a href="binomialoptions.html" class="hover:text-white transition">Theory</a>
+        <a href="binomialoptionsdemo.html" class="hover:text-white transition">Demo</a>
+      </nav>
+    </div>
+  </footer>
 
 </body>
 

@@ -30,35 +30,38 @@
   ></script>
 </head>
 
-<body class = "bg-gradient-to-br from-slate-950 via-slate-900 to-zinc-900 text-zinc-300 font-sans bg-black text-zinc-100">
-<header class="p-6">
-    <nav aria-label="prime-nav">
-        <ul class="flex gap-10 text-sm tracking-wide justify-center">
-        <li><a href = "index.html" class="cursor-pointer hover:text-white">Home</a></li>
-        <li><a href = "binomialoptions.html" class="cursor-pointer hover:text-white">Binomial Options</a></li>
-        <li><a href = "" class="cursor-pointer hover:text-white"> Black Scholes Options </a></li>
-        </ul>
-    </nav>
-</header>
-<main>
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-zinc-900 text-zinc-100 font-sans">
 
-  <!-- PAGE TITLE -->
-  <header class="mb-16">
-    <h1 class="text-5xl font-semibold tracking-tight">
-      Binomial Options Theory
-    </h1>
-    <p class="mt-4 text-zinc-400 max-w-3xl">
-      A structured walkthrough of the binomial model, from intuition to valuation.
-    </p>
+    <header class="border-b border-zinc-800/50 backdrop-blur sticky top-0 z-40">
+    <nav aria-label="primary-nav" class="max-w-6xl mx-auto px-8 py-5">
+      <ul class="flex gap-8 text-sm tracking-wide justify-center text-zinc-400">
+        <li><a href="index.html" class="hover:text-white transition">Home</a></li>
+        <li><a href="binomialoptions.html" class="text-emerald-400">Binomial Options Theory</a></li>
+        <li><a href = "greeks.html" class = "hover:text-white transition">The Greeks</a></li>
+        <li><a href="binomialoptionsdemo.html" class="hover:text-white transition">Demo</a></li>
+        <li><a href="#" class="hover:text-white transition">Black–Scholes Options</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- TABLE OF CONTENTS -->
-  <section class="mb-20">
-    <h2 class="text-3xl font-medium mb-6">
-      Table of Contents
-    </h2>
+  <main class="max-w-6xl mx-auto px-8 py-20">
 
-    <ol class="space-y-2 pl-6 list-decimal text-zinc-300">
+    <!-- PAGE TITLE -->
+    <section class="mb-24 text-center">
+      <h1 class="text-6xl font-bold tracking-tight bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent mb-4">
+        Binomial Options Theory
+      </h1>
+      <p class="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+        A structured walkthrough of the binomial model, from intuition to valuation.
+      </p>
+    </section>
+
+    <!-- TABLE OF CONTENTS -->
+    <section class="mb-24 p-8 rounded-xl bg-zinc-900/40 border border-zinc-800/50">
+      <h2 class="text-2xl font-semibold mb-6 text-zinc-100">
+        Table of Contents
+      </h2>
+      <ol class="space-y-3 pl-8 list-decimal text-zinc-300">
       <li>Introduction</li>
       <li>Core Concepts</li>
       <li>Forward Binary Tree</li>
@@ -71,35 +74,30 @@
       </li>
       <li>Conclusions and Takeaways</li>
     </ol>
-  </section>
+    </section>
 
-  <!-- INTRODUCTION -->
-  <section id="introduction" class="mb-20">
-    <h2 class="text-3xl font-medium mb-4">
-      Introduction
-    </h2>
+    <!-- INTRODUCTION -->
+    <section id="introduction" class="mb-24">
+      <h2 class="text-3xl font-semibold mb-6 text-zinc-100 border-b border-zinc-800/50 pb-4">
+        Introduction
+      </h2>
+      <p class="text-lg leading-relaxed text-zinc-300 max-w-4xl">
+        The Binomial Model provides a method to determine an option's fair price in
+        present value by projecting future price movements of an underlying asset
+        over a discrete amount of time. In its simplest form, the model assumes the
+        asset price can move in only two directions — up or down — by a fixed magnitude.
+      </p>
+    </section>
 
-    <p class="leading-relaxed text-zinc-300">
-      The Binomial Model provides a method to determine an option's fair price in
-      present value by projecting future price movements of an underlying asset
-      over a discrete amount of time. In its simplest form, the model assumes the
-      asset price can move in only two directions — up or down — by a fixed magnitude.
-    </p>
-  </section>
-
-
-
-  <!-- CORE CONCEPTS -->
-  <section id="core-concepts" class="mb-20">
-    <h2 class="font-medium mb-6">
-      Core Concepts
-    </h2>
-
-    <h3 class="text-xl font-medium mb-4 text-zinc-200">
-      Five Key Components
-    </h3>
-
-    <ul class="space-y-3 pl-6 list-disc text-zinc-300">
+    <!-- CORE CONCEPTS -->
+    <section id="core-concepts" class="mb-24">
+      <h2 class="text-3xl font-semibold mb-8 text-zinc-100 border-b border-zinc-800/50 pb-4">
+        Core Concepts
+      </h2>
+      <h3 class="text-xl font-semibold mb-6 text-emerald-300">
+        Five Key Components
+      </h3>
+      <ul class="space-y-4 pl-8 list-disc text-zinc-300 max-w-4xl">
       <li>
         Beginning Asset Value
         <span class="text-zinc-400">(S)</span>
@@ -129,34 +127,32 @@
       </li>
     </ul>
 
-    <div class="mt-8 p-4 rounded-lg bg-zinc-900/50 border border-zinc-800">
-      <h4 class="font-medium text-zinc-200 mb-2">Note</h4>
-      <p class="text-zinc-400 leading-relaxed">
+    <div class="mt-10 p-6 rounded-xl bg-blue-950/20 border border-blue-900/30 backdrop-blur">
+      <h4 class="font-semibold text-blue-300 mb-3">Note</h4>
+      <p class="text-zinc-300 leading-relaxed text-sm">
         Although it may seem intuitive to assign probabilities to upward or downward
         price movements, we will later show that the option’s fair price is determined
         independently of real-world probabilities due to arbitrage considerations.
       </p>
     </div>
-  </section>
+    </section>
 
- <!-- FORWARD BINOMIAL TREE -->
-<section class="my-16">
-  <h2 class="text-3xl font-semibold mb-4">Forward Binomial Tree</h2>
+    <!-- FORWARD BINOMIAL TREE -->
+    <section class="mb-24">
+      <h2 class="text-3xl font-semibold mb-8 text-zinc-100 border-b border-zinc-800/50 pb-4">Forward Binomial Tree</h2>
 
-    <p class="text-zinc-400 max-w-3xl mb-8">
-    Say the current stock price is \(P_0\) at time \(T_0\).
-    From this point, it can only move up or down at the next time step \(T_1\).
-    <br><br>
-    We model this by adding two child nodes:
-    <br>
-    <span class="math inline">\(\text{Up} = P_0 \times U\)</span><br>
-    <span class="math inline">\(\text{Down} = P_0 \times D\)</span>
-    <br><br>
-    This process repeats recursively until expiration.
-  </p>
+      <p class="text-zinc-300 max-w-3xl mb-10 text-lg leading-relaxed">
+        Say the current stock price is \(P_0\) at time \(T_0\). From this point, it can only move up or down at the next time step \(T_1\). We model this by adding two child nodes:
+        <br /><br />
+        <span class="math inline">\(\text{Up} = P_0 \times U\)</span>
+        <br />
+        <span class="math inline">\(\text{Down} = P_0 \times D\)</span>
+        <br /><br />
+        This process repeats recursively until expiration.
+      </p>
 
-  <!-- Tree -->
-  <div class="flex justify-center gap-20">
+      <!-- Tree -->
+      <div class="flex justify-center gap-20 example-tree p-10 rounded-xl bg-zinc-900/30 border border-zinc-800/40 mb-8">
     <div class="flex flex-col justify-center">
       <div class="node node-active">
         <span class="font-mono">P₀</span>
@@ -185,10 +181,10 @@
     If we set <span class="font-mono">iterations = 2</span>,
     <span class="font-mono">U = 1.1</span>,
     and <span class="font-mono">D = 0.9</span>, the tree looks like:
-  </p>
+      </p>
 
-  <div class="flex justify-center gap-20">
-    <!-- Step 0 -->
+      <div class="flex justify-center gap-20 example-tree p-10 rounded-xl bg-zinc-900/30 border border-zinc-800/40">
+        <!-- Step 0 -->
     <div class="flex flex-col justify-center">
       <div class="node node-active">
         <span class="font-mono">100</span>
@@ -216,81 +212,70 @@
       <div class="node node-down">
         <span class="font-mono">81</span>
       </div>
-    </div>
-  </div>
-</section>
-
-
-
- <!-- BACKWARD INDUCTION -->
-<section class="my-20">
-  <h2 class="text-3xl font-semibold mb-6">Backward Induction</h2>
-  <article>
-    <h3 class="text-2xl font-medium mb-3">European Options</h3>
-
-    <p class="text-zinc-400 max-w-3xl mb-6">
-      At expiration, each <strong>terminal node</strong> has a payoff.
-      Using these payoffs, we determine the fair option price today by working backward through the tree.
-    </p>
-
-    <h4 class="text-xl font-medium mb-2">Step 1: Calculate the Payoffs</h4>
-
-      <p class="text-zinc-400 max-w-3xl mb-6">
-      For a call option:
-      <br>
-      <span class="math display">$$\text{Payoff} = \max(0,\; S - S_k)$$</span>
-      <br><br>
-      For a put option:
-      <br>
-      <span class="math display">$$\text{Payoff} = \max(0,\; S_k - S)$$</span>
-    </p>
-
-
-
-    <h4 class="text-xl font-medium mb-2">Step 2: Work Backward</h4>
-      <p class="text-zinc-400 max-w-3xl mb-4">
-      At an earlier node (the parent of the two children), we compute the
-      <strong>discounted expected value</strong> of the option.
-      </p>
-
-      <div class="my-6">
-      <span class="math display">
-        $$V_{\text{current}} = e^{-r\,\Delta t}\left(pV_{\text{up}} + (1-p)V_{\text{down}}\right)$$
-      </span>
       </div>
+    </div>
+    </div>
+    </section>
 
-      <p class="text-zinc-400 max-w-3xl mb-4">
-      Here:
-      <br> \(r\) is the risk-free rate  
-      <br> \(\Delta t\) is the time step  
-      <br> \(p\) is the risk-neutral probability
-      </p>
-    <span class="math display">$$ p = \frac{e^{r \cdot \Delta t} - D}{U - D} $$</span>
 
-    <p>
-      Note that instead of the probabilities given, P(U) or P(D), we use risk-neutral probability. This is because we want to ensure <strong> no arbitrage </strong> -- meaning there is no way to make a riskless profit by combining stocks and options. <a href = "https://www.youtube.com/watch?v=fZa75q5Fkkk" target="_blank">[Further Info]</a>
-    </p>
-    <p>
-    Although it may be complicated, it'll be easier to understand once broken down. Inside the formula, it'll look identical as if you were to compute the regular expected value of the option, except we used risk-neutral probability instead of up and down probabilities.
-    <span class = "math display"> $$V_{current} = (p_{up} \cdot V_{\text{up}} + (1-p_{down}) \cdot V_{\text{down}})$$</span>
-    The factor being multiplied by the expected value <span class = "math inline">\(e^{-r \cdot Δt}\)</span> is the discount factor. Since money is flowing from the future and closer to the present day, we must discount it so that it is equivalent in value. <a href = "https://en.wikipedia.org/wiki/Time_value_of_money" target="_blank">[Time Value of Money]</a>
-    </p>
-    <p>  
-    We'll repeat this process until we've reached the root node, which gives the fair option price today.
-    </p>
-    
-  <h2 class="text-3xl font-semibold my-4">Example</h2>
-  <p> Parameters:
-  <br>
-  <span class="font-mono">Iterations = 2</span> <br>
-  <span class="font-mono">U = 1.1</span><br>
-  <span class="font-mono">D = 0.9</span><br>
-  <span class="font-mono">Risk-free rate = 0.03</span><br>
-  <span class="font-mono">Strike = 102</span><br>
-  <span class="font-mono">Call option = True</span><br>
-  </p>
 
-  <div class="flex justify-center gap-20">
+    <!-- BACKWARD INDUCTION -->
+    <section class="mb-24">
+      <h2 class="text-3xl font-semibold mb-8 text-zinc-100 border-b border-zinc-800/50 pb-4">Backward Induction</h2>
+      <article>
+        <h3 class="text-2xl font-semibold mb-6 text-emerald-300">European Options</h3>
+
+        <p class="text-zinc-300 max-w-3xl mb-8 text-lg">
+          At expiration, each <strong>terminal node</strong> has a payoff. Using
+          these payoffs, we determine the fair option price today by working
+          backward through the tree.
+        </p>
+
+        <h4 class="text-xl font-semibold mb-4 mt-8 text-zinc-200">Step 1: Calculate the Payoffs</h4>
+        <p class="text-zinc-300 max-w-3xl mb-8 text-lg">
+          For a call option:
+          <br />
+          <span class="math display">$$\text{Payoff} = \max(0,\; S - S_k)$$</span>
+          <br />
+          For a put option:
+          <br />
+          <span class="math display">$$\text{Payoff} = \max(0,\; S_k - S)$$</span>
+        </p>
+
+        <h4 class="text-xl font-semibold mb-4 mt-8 text-zinc-200">Step 2: Work Backward</h4>
+        <p class="text-zinc-300 max-w-3xl mb-6 text-lg">
+          At an earlier node (the parent of the two children), we compute the
+          <strong>discounted expected value</strong> of the option.
+        </p>
+
+        <div class="my-8 p-6 rounded-lg bg-zinc-900/50 border border-zinc-800/30">
+          <span class="math display">$$V_{\text{current}} = e^{-r\,\Delta t}\left(pV_{\text{up}} + (1-p)V_{\text{down}}\right)$$</span>
+        </div>
+
+        <p class="text-zinc-300 max-w-3xl mb-6 text-lg">
+          Here:
+          <br /> \(r\) is the risk-free rate
+          <br /> \(\Delta t\) is the time step
+          <br /> \(p\) is the risk-neutral probability
+        </p>
+
+        <span class="math display">$$ p = \frac{e^{r \cdot \Delta t} - D}{U - D} $$</span>
+        <p class="text-zinc-300 mt-6 text-lg">
+          Note that instead of real-world probabilities we use the risk-neutral
+          probability. This ensures <strong>no arbitrage</strong> — there is no way
+          to make a riskless profit by combining stocks and options.
+        </p>
+        <p class="text-zinc-300 mt-6 text-lg">
+          We'll repeat the backward induction until we reach the root node, which
+          yields the fair option price today.
+        </p>
+
+        <h3 class="text-2xl font-semibold my-8 text-zinc-100">Example</h3>
+        <p class="text-zinc-300 mb-6 text-lg">
+          <span class="text-yellow-300 font-mono text-sm">Iterations = 2 | U = 1.1 | D = 0.9 | Risk-free rate = 0.03 | Strike = 102 | Call option = True</span>
+        </p>
+
+        <div class="flex justify-center gap-20 example-tree p-10 rounded-xl bg-zinc-900/30 border border-zinc-800/40 mb-8 mt-8">
     <!-- Step 0 -->
     <div class="flex flex-col justify-center">
       <div class="node node-active">
@@ -319,54 +304,44 @@
       <div class="node node-down">
         <span class="font-mono">0.00</span>
       </div>
-    </div>
-  </div>
- </article>
+          </div>
+        </div>
+        </div>
+      </article>
 
-<article>
-  <h3 class="text-2xl font-medium my-3">American Options</h3>
-  <h4 class="text-xl font-medium my-2">Key Differences</h4>
-  <p>Whereas European options are only allowed to be exercised upon the date of expiration, American options can be exercised throughout their lifetime. Overall, this generally provides <strong>flexibility</strong> as the option can be exercised at any time to potentially achieve a greater profit (or loss). </p>
-  <h4 class="text-xl font-medium my-2">Calculations</h4>
-  <p>At each node at some <strong>time T</strong>, we ask one question: <strong>would the value of the option be if we exercised it?</strong> The immediate exercise value (<span class = "math inline">\(IEV_t\)</span>) answers that question. If you did exercise it at some time T, the immediate exercise value is simply the payoff you'd receive if you exercised the option right at that moment.</p>
+      <article class="mt-16 pt-8 border-t border-zinc-800/50">
+        <h3 class="text-2xl font-semibold mb-6 text-emerald-300">American Options</h3>
+        <h4 class="text-xl font-semibold mb-4 text-zinc-200">Key Differences</h4>
+        <p class="text-zinc-300 text-lg mb-6">
+          Whereas European options are exercised only at expiration, American
+          options can be exercised any time during their lifetime. This flexibility
+          can increase (or decrease) the option's value depending on the path.
+        </p>
 
-  <p>
-    For a <strong>call</strong> option, the payoff at time T is as follows: 
-    <span class = "math inline">$$IEV_t = max(0, S_t - S_k)$$</span>
+        <h4 class="text-xl font-semibold mb-4 mt-8 text-zinc-200">Calculations</h4>
+        <p class="text-zinc-300 text-lg">
+          At each node we compare the immediate exercise value <span class="math inline">\(IEV_t\)</span>
+          with the continuation value <span class="math inline">\(CV_t\)</span> and
+          take the maximum:
+          <br />
+          <span class="math display">$$V_t = \max(IEV_t, CV_t)$$</span>
+        </p>
 
-    For a <strong>put</strong> option, the payoff at time T is as follows:
-    <span class = "math inline">$$IEV_t  = max(S_k - S, 0)$$</span>
-  </p>
+        <h3 class="text-2xl font-semibold my-8 text-zinc-100">Arbitrage Example</h3>
+        <p class="text-zinc-300 text-lg mb-8">
+          If <span class="math inline">\(IEV_t\) = $15</span> and
+          <span class="math inline">\(CV_t\) = $15</span> but the option is
+          priced at $15, an investor could buy it for $15 and earn a guaranteed
+          $5 profit — a violation of no-arbitrage.
+        </p>
 
-  <p>
-    Then there's the other possibility: <strong>what if we did not exercise it</strong>? Logically, its price would be <strong>identical</strong> to that of a European option, since at time T the option would <strong>not</strong> be exercised. We already know that value, the continuation value (<span class = "math inline">\(CV_t\)</span>), which is simply: 
-    <span class = "math display">$$CV_t = e^{-r \cdot Δt} \cdot (p \cdot V_{\text{up}} + (1-p) \cdot V_{\text{down}})$$</span>
-  </p>
+        <h3 class="text-2xl font-semibold my-8 text-zinc-100">General Example</h3>
+        <p class="text-zinc-300 mb-8 text-lg">
+          <span class="text-yellow-300 font-mono text-sm">Iterations = 2 | U = 1.1 | D = 0.9 | Risk-free rate = 0.1 | Strike = 102 | Put option (American)</span>
+        </p>
 
-  <p> 
-    Now we're given two values to consider, the immediate exercise value and the continuation value. To determine the option's price at that price, we take the max of the two values:
-    <span class = "math display">$$V_t = max(IET_t, CV_t)$$</span>
-  </p>
-
-  <p> At first glance, we take the max simply because a rational investor wants the higher payoff. But deeper than that, choosing anything other than the max creates an arbitrage opportunity.</p>
-
-  <h2 class="text-3xl font-semibold my-4"> Abritrage Example</h2>
-  <p>If <span class = "math inline">\(IEV_t\) = $15</span> and <span class = "math inline">\(CV_t\) = $20</span> but the option is priced in at $15, an investor could buy it for $15 and hold it for a risk-free gain to $20. This guaranteed $5 profit violates no-arbitrage, so the option must be worth $20.</p>
-
-  <h2 class="text-3xl font-semibold my-4"> General Example</h2>
-  <p> Parameters:
-  <br>
-  <span class="font-mono">Iterations = 2</span> <br>
-  <span class="font-mono">U = 1.1</span><br>
-  <span class="font-mono">D = 0.9</span><br>
-  <span class="font-mono">Risk-free rate = 0.1</span><br>
-  <span class="font-mono">Strike = 102</span><br>
-  <span class="font-mono">Call option = False (Put Option)</span><br>
-  <span class="font-mono">European option = False (American Option)</span><br>
-  </p>
-  <h4 class="text-xl font-medium my-2">Underlying Asset Price Action</h4>
-
-    <div class="flex justify-center gap-20">
+        <h4 class="text-lg font-semibold my-6 text-zinc-200">Underlying Asset Price Action</h4>
+        <div class="flex justify-center gap-20 example-tree p-10 rounded-xl bg-zinc-900/30 border border-zinc-800/40 mb-8 mt-6">
     <!-- Step 0 -->
     <div class="flex flex-col justify-center">
       <div class="node node-active">
@@ -396,10 +371,9 @@
         <span class="font-mono">82.64</span>
       </div>
     </div>
-  </div>
-
-  <h4 class="text-xl font-medium my-2">American Option</h4>
-    <div class="flex justify-center gap-20">
+      </div>
+      <h4 class="text-lg font-semibold my-6 text-zinc-200">American Option</h4>
+      <div class="flex justify-center gap-20 example-tree p-10 rounded-xl bg-zinc-900/30 border border-zinc-800/40 mb-8">
     <!-- Step 0 -->
     <div class="flex flex-col justify-center">
       <div class="node node-active">
@@ -429,10 +403,9 @@
         <span class="font-mono">19.36</span>
       </div>
     </div>
-  </div>
-
-  <h4 class="text-xl font-medium my-2">European Option (for comparison)</h4>
-    <div class="flex justify-center gap-20">
+      </div>
+      <h4 class="text-lg font-semibold my-6 text-zinc-200">European Option (for comparison)</h4>
+      <div class="flex justify-center gap-20 example-tree p-10 rounded-xl bg-zinc-900/30 border border-zinc-800/40 mb-8">
     <!-- Step 0 -->
     <div class="flex flex-col justify-center">
       <div class="node node-active">
@@ -461,12 +434,93 @@
       <div class="node node-down">
         <span class="font-mono">16.84</span>
       </div>
-    </div>
-  </div>
-</article>
-</section>
+        </div>
+      </div>
+      </div>
+      </article>
+    </section>
 
-</main>
+  </main>
+
+<footer class="border-t border-zinc-800/50 mt-20 bg-zinc-900/30">
+    <div class="max-w-6xl mx-auto px-8 py-12 flex flex-col sm:flex-row items-center justify-between gap-8">
+      <div class="flex flex-col items-center sm:items-start gap-4">
+        <div class="text-sm text-zinc-400 tracking-wide">
+          © 2026 Gleb Sokhin
+        </div>
+        <div class="flex gap-4">
+          <a href="https://glebquant.netlify.app/" target="_blank" class="transition hover:opacity-80"><img src="public/img/sigmaicon.png" width="50px" alt="Portfolio"></a>
+          <a href="https://www.linkedin.com/in/gleb-sokhin/" target="_blank" class="transition hover:opacity-80"><img src="public/img/linkedinlogo.png" width="50px" alt="LinkedIn"></a>
+          <a href="https://github.com/Student-of-Python" target="_blank" class="transition hover:opacity-80"><img src="public/img/githublogo.png" width="50px" alt="GitHub"></a>
+        </div>
+      </div>
+        
+      <nav class="flex gap-6 text-sm tracking-wide text-zinc-400">
+        <a href="index.html" class="hover:text-white transition">Home</a>
+        <a href="binomialoptions.html" class="text-emerald-400">Theory</a>
+        <a href="binomialoptionsdemo.html" class="hover:text-white transition">Demo</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Draw connecting lines for static example trees.
+    (function drawExampleTreeLines(){
+      function drawFor(container){
+        // create svg overlay
+        const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+        svg.setAttribute('aria-hidden','true');
+        container.style.position = container.style.position || 'relative';
+        container.prepend(svg);
+
+        const cols = Array.from(container.children).filter(c => c.classList && c.classList.contains('flex'));
+        // If the structure is nested (columns are immediate children), but sometimes there are wrappers; fallback below
+        const columns = cols.length ? cols : Array.from(container.querySelectorAll(':scope > div'));
+
+        const levels = columns.map(col => Array.from(col.querySelectorAll('.node')));
+        if (levels.length < 2) return;
+
+        // sync svg size
+        const rect = container.getBoundingClientRect();
+        svg.setAttribute('width', rect.width);
+        svg.setAttribute('height', rect.height);
+        svg.style.position = 'absolute'; svg.style.left='0'; svg.style.top='0'; svg.style.width='100%'; svg.style.height='100%';
+
+        // helper to get center point relative to container
+        function center(el){
+          const r = el.getBoundingClientRect();
+          return { x: r.left + r.width/2 - rect.left, y: r.top + r.height/2 - rect.top };
+        }
+
+        for (let lvl = 0; lvl < levels.length - 1; lvl++){
+          const parents = levels[lvl];
+          const children = levels[lvl+1];
+          parents.forEach((p, idx) => {
+            const leftChild = children[idx];
+            const rightChild = children[idx+1];
+            if (!leftChild && !rightChild) return;
+            const pc = center(p);
+            [leftChild, rightChild].forEach(c => {
+              if (!c) return;
+              const cc = center(c);
+              const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+              line.setAttribute('x1', pc.x); line.setAttribute('y1', pc.y);
+              line.setAttribute('x2', cc.x); line.setAttribute('y2', cc.y);
+              line.setAttribute('stroke','#6b7280'); line.setAttribute('stroke-width','2');
+              svg.appendChild(line);
+            });
+          });
+        }
+      }
+
+      // find all marked example-tree containers
+      document.addEventListener('DOMContentLoaded', ()=>{
+        document.querySelectorAll('.example-tree').forEach(container => {
+          try { drawFor(container); } catch(e){ console.warn('drawExampleTreeLines failed', e); }
+        });
+      });
+    })();
+  </script>
 </body>
 
 
