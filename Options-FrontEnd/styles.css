@@ -73,6 +73,18 @@ main {
   border-radius: 0.75rem;
   font-family: "JetBrains Mono", monospace;
   font-size: 0.75rem;
+
+  opacity: 0;
+  transform: translateY(6px) scale(0.98);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.node.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .tree-wrapper {
@@ -89,6 +101,7 @@ main {
   transform-origin: top center;
   transition: transform 0.2s ease;
 }
+
 
 @layer components {
   .greek-card {
@@ -114,3 +127,39 @@ main {
     @apply text-rose-400;
   }
 }
+
+input {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Additional node/line semantic and animation styles */
+.node.root {
+  outline: 2px solid rgb(245 158 11 / 1);
+  box-shadow: 0 8px 20px rgba(245,158,11,0.12);
+}
+.node.leaf {
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.node.positive { background: rgba(16,185,129,0.12); color: #dcfce7; border-color: rgba(16,185,129,0.2); }
+.node.negative { background: rgba(239,68,68,0.08); color: #ffe6e6; border-color: rgba(239,68,68,0.18); }
+.node.neutral  { background: rgba(15,23,42,0.6); color: #cbd5e1; }
+
+/* Slight left-to-right entrance in addition to existing vertical motion */
+.node {
+  transform: translateY(6px) translateX(-8px) scale(0.98);
+}
+.node.visible { transform: translateY(0) translateX(0) scale(1); }
+
+/* SVG lines: base invisible, 'drawn' makes them visible */
+#tree-lines line {
+  stroke: #6b7280;
+  stroke-width: 2;
+  stroke-opacity: 0;
+  transition: stroke-opacity 260ms ease, stroke-width 120ms ease;
+}
+#tree-lines line.drawn { stroke-opacity: 0.7; }
+
+/* small helper for developer/debugging if needed */
+.node.debug { outline: 1px dashed rgba(255,255,255,0.04); }

@@ -69,7 +69,7 @@ function renderTree(treeType) {
     const maxRow = Math.max(...Object.values(rowPositions));
     container.style.gridTemplateRows = `repeat(${maxRow + 1}, 70px)`;
 
-    // 3. Render nodes
+    // 3. Render nodes (annotate depth + semantic classes)
     tree.forEach((nodeObj, i) => {
         const depth = Math.floor(Math.log2(i + 1));
 
@@ -77,6 +77,25 @@ function renderTree(treeType) {
         node.className = "node";
         node.textContent = nodeObj.toString();
         node.dataset.index = i;
+        node.dataset.depth = depth;
+
+        // semantic classes
+        if (i === 0) node.classList.add("root");
+        const firstLeaf = Math.pow(2, levels - 1) - 1;
+        if (i >= firstLeaf) node.classList.add("leaf");
+
+        // determine numeric value if present (option tree stores e.g. option_value)
+        let val = null;
+        if (nodeObj && typeof nodeObj.option_value !== 'undefined') val = nodeObj.option_value;
+        else if (nodeObj && typeof nodeObj.value !== 'undefined') val = nodeObj.value;
+
+        if (typeof val === 'number') {
+            if (val > 0) node.classList.add('positive');
+            else if (val < 0) node.classList.add('negative');
+            else node.classList.add('neutral');
+        } else {
+            node.classList.add('neutral');
+        }
 
         node.style.gridColumn = depth + 1;
         node.style.gridRow = rowPositions[i];
@@ -109,6 +128,8 @@ function drawConnections(tree) {
         const px = parentRect.left + parentRect.width / 2 - containerRect.left;
         const py = parentRect.top + parentRect.height / 2 - containerRect.top;
 
+        const parentDepth = Number(parent.dataset.depth || Math.floor(Math.log2(i + 1)));
+
         [2 * i + 1, 2 * i + 2].forEach(childIndex => {
             const child = nodeMap[childIndex];
             if (!child) return;
@@ -117,11 +138,7 @@ function drawConnections(tree) {
             const cx = childRect.left + childRect.width / 2 - containerRect.left;
             const cy = childRect.top + childRect.height / 2 - containerRect.top;
 
-            const line = document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "line"
-            );
-
+            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
             line.setAttribute("x1", px);
             line.setAttribute("y1", py);
             line.setAttribute("x2", cx);
@@ -129,16 +146,9 @@ function drawConnections(tree) {
             line.setAttribute("stroke", "#52525b");
             line.setAttribute("stroke-width", "2");
 
-            // START INVISIBLE
-            line.setAttribute("stroke-opacity", "0");
-            line.style.transition = "stroke-opacity 0.3s ease";
-
+            // tag with depth; CSS controls visibility via .drawn
+            line.dataset.depth = parentDepth;
             svg.appendChild(line);
-
-            // FORCE ANIMATION NEXT FRAME
-            requestAnimationFrame(() => {
-                line.setAttribute("stroke-opacity", "0.7");
-            });
         });
     });
 }
@@ -189,10 +199,34 @@ function postResult(finalTree) {
     });
 }
 
+function animateTreeByLevel(levelDelay = 180) {
+    const nodes = Array.from(document.querySelectorAll('.node'));
+    const levels = {};
+    nodes.forEach(node => {
+        const depth = Number(node.dataset.depth ?? (Number(node.style.gridColumn) - 1));
+        if (!levels[depth]) levels[depth] = [];
+        levels[depth].push(node);
+    });
+
+    const maxLevel = Math.max(...Object.keys(levels).map(Number));
+
+    for (let level = 0; level <= maxLevel; level++) {
+        setTimeout(() => {
+            (levels[level] || []).forEach(n => n.classList.add('visible'));
+
+            // after nodes show, reveal lines that originate from this depth
+            setTimeout(() => {
+                const svg = document.getElementById('tree-lines');
+                svg.querySelectorAll(`line[data-depth="${level}"]`).forEach(l => l.classList.add('drawn'));
+            }, 120);
+        }, level * levelDelay);
+    }
+}
+
 function update() {
     const S0 = Number(current_price.value);
     const u = Number(U.value);
-    const n = Number(steps.value);
+    const n = Math.min(4, Math.max(0, Number(steps.value)));
     const r = Number(risk_rate.value);
     const k = Number(strike.value);
     const isCall = call_bool.checked;
@@ -207,6 +241,8 @@ function update() {
     postResult(greekTree);
     requestAnimationFrame(() => {
         drawConnections(greekTree.tree);
+        // start per-level animation once lines exist
+        animateTreeByLevel(180);
     });
     console.log("Rendered nodes:", document.querySelectorAll(".node").length);
     console.log("SVG lines:", document.querySelectorAll("#tree-lines line").length);
