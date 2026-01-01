@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name = "Author" content = "Gleb Sokhin">
-  <title>Options | Home </title>
+  <title>Options | The Greeks </title>
   <link href = "styles.css" rel = "stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,7 +50,7 @@
       The Greeks
     </h1>
     <p class="text-xl text-slate-500 max-w-2xl mx-auto">
-      Quantifying option price sensitivities in the binomial and continuous-time frameworks
+      How sensitive an option's value is to underlying factors.
     </p>
   </header>
 
@@ -64,7 +64,7 @@
     <h3 class="section-label">Definition</h3>
     <p class="section-text">
       Delta measures the sensitivity of an option’s value to changes in the price of the underlying asset.
-      It represents the option’s first-order exposure to movements in the underlying.
+      Delta shows how much the option's value will change given the underlying asset changes by $1. 
     </p>
   </div>
 
@@ -79,7 +79,7 @@
     </div>
 
     <p class="formula-caption">
-      In the binomial model, Delta is approximated by comparing option values across adjacent price nodes.
+      In the binomial model, Delta is approximated by comparing option values of its left and right children. At expiration, I defined Delta to be 1.00 when in-the-money (ITM), 0.00 when out-of-the-money (OTM), and 0.5 if at-the-money (ATM)
     </p>
 
     <div class="math-card mt-4">
@@ -109,7 +109,7 @@
         <p>
           Delta captures an option’s directional bias.
           Calls have positive Delta, puts have negative Delta,
-          and the magnitude reflects the option’s moneyness.
+          and the magnitude reflects the option’s moneyness (its strike price relative to the underlying price)).
         </p>
       </div>
 
@@ -135,7 +135,7 @@
     <h3 class="section-label">Definition</h3>
     <p class="section-text">
       Gamma measures the sensitivity of Delta to changes in the underlying price.
-      If Delta is velocity, Gamma is acceleration — it determines how fast Delta changes.
+      If Delta is velocity, Gamma is acceleration; it determines how fast Delta changes.
     </p>
   </div>
 
@@ -150,7 +150,7 @@
     </div>
 
     <p class="formula-caption">
-      In a binomial framework, Gamma is approximated using changes in Delta across price nodes.
+      In a binomial framework, Gamma is approximated using changes in Delta across price nodes. I did not define Gamma at terminal nodes.
     </p>
 
     <div class="math-card mt-4">
@@ -169,16 +169,15 @@
       <div class="info-card">
         <h4>Curvature</h4>
         <p>
-          Gamma captures the curvature of the option’s value.
-          Linear instruments like stocks have zero Gamma; options do not.
+          Gamma captures how non-linear an option is. A stock's value changes linearly with its price, so its Gamma is zero. An option's value changes non-linearly as the underlying price moves, and Gamma measures the strength of that bend. 
         </p>
       </div>
 
       <div class="info-card">
         <h4>Convexity Risk</h4>
         <p>
-          Long options benefit from large price moves due to positive Gamma,
-          while short options are harmed by volatility.
+        A positive Gamma means Delta will move proportionally with the underlying price, while a negative Gamma means Delta will move inversely proportional. This means long options benefit from large price moves due to positive Gamma,
+          while short options have negative Gamma and are harmed by volatility.
         </p>
       </div>
 
@@ -186,7 +185,7 @@
         <h4>Re-hedging Frequency</h4>
         <p>
           High Gamma means Delta changes rapidly,
-          requiring frequent rebalancing to remain Delta-neutral.
+          requiring frequent rebalancing to remain Delta-neutral. The portfolio needs to change more often with a higher Gamma to re-hedge.
         </p>
       </div>
     </div>
@@ -202,7 +201,7 @@
     <h3 class="section-label">Definition</h3>
     <p class="section-text">
       Theta measures how an option’s value changes as time passes,
-      holding all else constant. It quantifies time decay.
+      holding all else constant. It quantifies time decay and and measures uncertainty.
     </p>
   </div>
 
@@ -216,7 +215,7 @@
     </div>
 
     <p class="formula-caption">
-      In the binomial model, Theta is approximated using midpoint traversal.
+      In the binomial model, Theta is approximated using midpoint traversal (going left, right after a parent node). Theta is not defined at nodes which lack a middle node.
     </p>
 
     <div class="math-card mt-4">
@@ -233,24 +232,22 @@
       <div class="info-card">
         <h4>Time Decay</h4>
         <p>
-          As expiration approaches, uncertainty collapses and option value erodes.
-          Theta accelerates near maturity.
+          As expiration approaches, uncertainty collapses and option value erodes. 
+          Theta accelerates near maturity since the underlying's price is more certain with less time. Theta decay rapidly eats away an option's value close to expiration. 
         </p>
       </div>
 
       <div class="info-card">
         <h4>Cost of Waiting</h4>
         <p>
-          Being directionally correct is insufficient —
-          the move must happen fast enough to overcome Theta.
+          Traders can lose despite being directionally correct; Traders must enter a position enough to overcome Theta. 
         </p>
       </div>
 
       <div class="info-card">
         <h4>Theta–Gamma Tradeoff</h4>
         <p>
-          High Gamma positions often come with high Theta decay.
-          Convexity is rarely free.
+          The more an option can gain from sudden moves, the most it costs to hold over time. If the market does not move, time works against you.  
         </p>
       </div>
     </div>
@@ -281,7 +278,7 @@
     </div>
 
     <p class="formula-caption">
-      In discrete models, Vega is computed using volatility perturbations.
+      In the binomial model, Vega is computed using small changes in volatility. Vega is a property of the tree, therefore only the root node can have Vega. 
     </p>
 
     <div class="math-card mt-4">
@@ -300,24 +297,22 @@
       <div class="info-card">
         <h4>Volatility Exposure</h4>
         <p>
-          Vega profits from volatility expansion regardless of direction.
-          Large moves — not correct direction — generate value.
+          Options with positive Vega gain when volatility rises, regardless of movement's direction. What matters is the size of the movement, not the direction. 
         </p>
       </div>
 
       <div class="info-card">
         <h4>Event Risk</h4>
         <p>
-          Earnings and macro events inflate implied volatility,
-          creating opportunities — and IV crush risk.
+          Earnings and macro events increase implied volatility,
+          creating opportunities. However, after the event, volatility often declines, taking the option's value down with it (IV Crush).
         </p>
       </div>
 
       <div class="info-card">
         <h4>Time Dependence</h4>
         <p>
-          Longer-dated options have higher Vega since uncertainty
-          needs time to express itself.
+          The more time an option has till expiration, the more sensitive it will be to changes in implied volatility. With more time, uncertainty has a greater impact on the option's value.
         </p>
       </div>
     </div>
@@ -347,7 +342,7 @@
     </div>
 
     <p class="formula-caption">
-      In the binomial model, Rho is approximated via rate perturbations.
+      In the binomial model, Rho is computed using small changes in risk free rate. Rho is a property of the tree, therefore only the root node can have Rho. 
     </p>
 
     <div class="math-card mt-4">
@@ -366,24 +361,21 @@
       <div class="info-card">
         <h4>Time Value of Money</h4>
         <p>
-          Higher interest rates reduce the present value of future payoffs,
-          altering option prices.
+          Money received today is worth more than money received in the future. When interest rates increase, future option payoffs are discounted more heavily, reducing their present value. 
         </p>
       </div>
 
       <div class="info-card">
         <h4>Long-Dated Sensitivity</h4>
         <p>
-          Rho is negligible for short-term options but meaningful
-          for long maturities.
+          Changes in interest rates impact the options value less when coming closer to expiration since there is less time for discounting and therefore less emphasis on the time value of money. 
         </p>
       </div>
 
       <div class="info-card">
         <h4>Macro Hedging</h4>
         <p>
-          Rho exposure is often hedged using rate-sensitive instruments
-          such as bonds, swaps, and futures.
+          When interest rates change, option prices change. Traders hedge by using other instruments such as bonds and rate futures.
         </p>
       </div>
     </div>

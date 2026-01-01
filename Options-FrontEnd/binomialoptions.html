@@ -52,7 +52,7 @@
         Binomial Options Theory
       </h1>
       <p class="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-        A structured walkthrough of the binomial model, from intuition to valuation.
+        Theory from the ground up. 
       </p>
     </section>
 
@@ -62,28 +62,28 @@
         Table of Contents
       </h2>
       <ol class="space-y-3 pl-8 list-decimal text-zinc-300">
-      <li>Introduction</li>
-      <li>Core Concepts</li>
-      <li>Forward Binary Tree</li>
+      <li><a href = "#introduction">Introduction</a></li>
+      <li><a href = "#core-concepts">Core Concepts</a></li>
+      <li><a href = "#Forward-Binary-Tree">Forward Binary Tree</a></li>
       <li>
-        Backward Induction Tree
+        <a href = "#Backward Induction">Backward Induction Tree</a>
         <ul class="mt-2 pl-6 list-disc text-zinc-400 space-y-1">
-          <li>European Options</li>
-          <li>American Options</li>
+          <li><a href = "#European Options">European Options</a></li>
+          <li><a href = "#American Option">American Options</a></li>
         </ul>
       </li>
-      <li>Conclusions and Takeaways</li>
-      <li>Further Comments<
+      <li><a href = "#Conclusion & Takeaway">Conclusion & Takeaway</a></li>
+      <li> <a href = "#Further Comments">Further Comments</a>
       <ul class="mt-2 pl-6 list-disc text-zinc-400 space-y-1">
-          <li>Outlook</li>
-          <li>Remarks</li>
+          <li><a href = "#Outlooks">Outlooks</a></li>
+          <li><a href = "#Remarks">Remarks</a></li>
         </ul>
       </li>
     </ol>
     </section>
 
     <!-- INTRODUCTION -->
-    <section id="introduction" class="mb-24">
+    <section id="introduction" class="mb-24 scroll-mt-[30vh]">
       <h2 class="text-3xl font-semibold mb-6 text-zinc-100 border-b border-zinc-800/50 pb-4">
         Introduction
       </h2>
@@ -91,12 +91,12 @@
         The Binomial Model provides a method to determine an option's fair price in
         present value by projecting future price movements of an underlying asset
         over a discrete amount of time. In its simplest form, the model assumes the
-        asset price can move in only two directions — up or down — by a fixed magnitude.
+        asset price can move in only two directions -- up or down -- by a fixed magnitude.
       </p>
     </section>
 
     <!-- CORE CONCEPTS -->
-    <section id="core-concepts" class="mb-24">
+    <section id="core-concepts" class="mb-24 scroll-mt-[30vh]"">
       <h2 class="text-3xl font-semibold mb-8 text-zinc-100 border-b border-zinc-800/50 pb-4">
         Core Concepts
       </h2>
@@ -111,25 +111,25 @@
 
       <li>
         Up Move Factor
-        <span class="text-zinc-400">(U)</span> — the proportional gain when the asset
+        <span class="text-zinc-400">(U)</span> → the proportional gain when the asset
         price increases.
       </li>
 
       <li>
         Down Move Factor
-        <span class="text-zinc-400">(D)</span> — the proportional loss when the asset
+        <span class="text-zinc-400">(D)</span> → the proportional loss when the asset
         price decreases, often defined as
         <span class="math inline">\(D = \frac{1}{U}\)</span>.
       </li>
 
       <li>
         Strike Price
-        <span class="text-zinc-400">(Sₖ)</span> — the price at which the option may be exercised.
+        <span class="text-zinc-400">(Sₖ)</span> → the price at which the option may be exercised.
       </li>
 
       <li>
         Risk-Free Rate
-        <span class="text-zinc-400">(r)</span> — a guaranteed rate of return with no risk.
+        <span class="text-zinc-400">(r)</span> → a guaranteed rate of return with no risk.
       </li>
     </ul>
 
@@ -144,7 +144,7 @@
     </section>
 
     <!-- FORWARD BINOMIAL TREE -->
-    <section class="mb-24">
+    <section class="mb-24 scroll-mt-[30vh]" id = "Forward-Binary-Tree">
       <h2 class="text-3xl font-semibold mb-8 text-zinc-100 border-b border-zinc-800/50 pb-4">Forward Binomial Tree</h2>
 
       <p class="text-zinc-300 max-w-3xl mb-10 text-lg leading-relaxed">
@@ -193,30 +193,30 @@
         <!-- Step 0 -->
     <div class="flex flex-col justify-center">
       <div class="node node-active">
-        <span class="font-mono">100</span>
+        <span class="font-mono">100.00</span>
       </div>
     </div>
 
     <!-- Step 1 -->
     <div class="flex flex-col gap-6 justify-center">
       <div class="node node-up">
-        <span class="font-mono">110</span>
+        <span class="font-mono">110.00</span>
       </div>
       <div class="node node-down">
-        <span class="font-mono">90</span>
+        <span class="font-mono">90.91</span>
       </div>
     </div>
 
     <!-- Step 2 -->
     <div class="flex flex-col gap-6">
       <div class="node node-up">
-        <span class="font-mono">121</span>
+        <span class="font-mono">121.00</span>
       </div>
       <div class="node">
-        <span class="font-mono">100</span>
+        <span class="font-mono">100.00</span>
       </div>
       <div class="node node-down">
-        <span class="font-mono">81</span>
+        <span class="font-mono">82.64</span>
       </div>
       </div>
     </div>
@@ -226,15 +226,15 @@
 
 
     <!-- BACKWARD INDUCTION -->
-    <section class="mb-24">
-      <h2 class="text-3xl font-semibold mb-8 text-zinc-100 border-b border-zinc-800/50 pb-4">Backward Induction</h2>
+    <section class="mb-24 ">
+      <h2 class="text-3xl font-semibold mb-8 text-zinc-100 border-b border-zinc-800/50 pb-4 scroll-mt-[30vh]" id="Backward Induction" >Backward Induction</h2>
       <article>
-        <h3 class="text-2xl font-semibold mb-6 text-emerald-300">European Options</h3>
+        <h3 class="text-2xl font-semibold mb-6 text-emerald-300 scroll-mt-[30vh]" id = "European Options">European Options</h3>
 
         <p class="text-zinc-300 max-w-3xl mb-8 text-lg">
           At expiration, each <strong>terminal node</strong> has a payoff. Using
           these payoffs, we determine the fair option price today by working
-          backward through the tree.
+          backward through the tree. Given these payoffs, we want to ask, what is the fair price of the option today?
         </p>
 
         <h4 class="text-xl font-semibold mb-4 mt-8 text-zinc-200">Step 1: Calculate the Payoffs</h4>
@@ -251,7 +251,7 @@
         <h4 class="text-xl font-semibold mb-4 mt-8 text-zinc-200">Step 2: Work Backward</h4>
         <p class="text-zinc-300 max-w-3xl mb-6 text-lg">
           At an earlier node (the parent of the two children), we compute the
-          <strong>discounted expected value</strong> of the option.
+          <strong>discounted expected value</strong> of the option:
         </p>
 
         <div class="my-8 p-6 rounded-lg bg-zinc-900/50 border border-zinc-800/30">
@@ -259,7 +259,7 @@
         </div>
 
         <p class="text-zinc-300 max-w-3xl mb-6 text-lg">
-          Here:
+          Where:
           <br /> \(r\) is the risk-free rate
           <br /> \(\Delta t\) is the time step
           <br /> \(p\) is the risk-neutral probability
@@ -267,10 +267,16 @@
 
         <span class="math display">$$ p = \frac{e^{r \cdot \Delta t} - D}{U - D} $$</span>
         <p class="text-zinc-300 mt-6 text-lg">
-          Note that instead of real-world probabilities we use the risk-neutral
-          probability. This ensures <strong>no arbitrage</strong> — there is no way
-          to make a riskless profit by combining stocks and options.
+          Note that instead of real-world probabilities, we use the risk-neutral
+          probability. This ensures <strong><a href = "https://www.youtube.com/watch?v=fZa75q5Fkkk%5C" target="_blank" class = "text-orange-400">no arbitrage</a></strong> -- there is no way
+          to make a riskless profit by combining stocks and options. 
         </p>
+
+        <p class="text-zinc-300 mt-6 text-lg"> Although it may be complicated, it'll be easier to understand once broken down. Inside the formula, it'll look identical as if you were to compute the regular expected value of the option, 
+          except we used risk-neutral probability instead of up and down probabilities.</p>
+        <span class = "math display">$$V_{current} = (p_{up} \cdot V_{\text{up}} + (1-p_{down}) \cdot V_{\text{down}})$$</span>
+        <p> The factor being multiplied by the expected value (<span class="math inline">\( e^{-r \Delta t} \)</span>) is the discount factor. Since money is flowing from the future and closer to the present day, we must <strong><a href = "https://en.wikipedia.org/wiki/Time_value_of_money" target = "_blank" class = "text-orange-400">discount</a></strong> it so that it is equivalent in value. </p>
+
         <p class="text-zinc-300 mt-6 text-lg">
           We'll repeat the backward induction until we reach the root node, which
           yields the fair option price today.
@@ -316,29 +322,49 @@
       </article>
 
       <article class="mt-16 pt-8 border-t border-zinc-800/50">
-        <h3 class="text-2xl font-semibold mb-6 text-emerald-300">American Options</h3>
+        <h3 class="text-2xl font-semibold mb-6 text-emerald-300 scroll-mt-[30vh]" id = "American Option">American Options</h3>
         <h4 class="text-xl font-semibold mb-4 text-zinc-200">Key Differences</h4>
         <p class="text-zinc-300 text-lg mb-6">
           Whereas European options are exercised only at expiration, American
-          options can be exercised any time during their lifetime. This flexibility
-          can increase (or decrease) the option's value depending on the path.
+          options can be exercised any time during their lifetime. Overall, this generally provides flexibility as the option can be exercised at any time to potentially achieve a greater profit (or loss).
         </p>
 
         <h4 class="text-xl font-semibold mb-4 mt-8 text-zinc-200">Calculations</h4>
         <p class="text-zinc-300 text-lg">
-          At each node we compare the immediate exercise value <span class="math inline">\(IEV_t\)</span>
-          with the continuation value <span class="math inline">\(CV_t\)</span> and
-          take the maximum:
-          <br />
-          <span class="math display">$$V_t = \max(IEV_t, CV_t)$$</span>
+          At each node at time <span class = "math inline">T</span>, there are two possibilities: exercising the option immediately or holding it for another time step. 
+          The value of exercising immediately is called the immediate exercise value (<span class="math inline">\(IEV_t\)</span>) which is simply the payoff at that moment: </p>
+        <br></br>
+        <p class="text-zinc-300 text-lg my-4">
+          Call option:
+          <span class="math inline">\( IEV_t = \max(0, S_k - S) \)</span>
         </p>
+
+        <p class="text-zinc-300 text-lg my-4">
+          Put option:
+          <span class="math inline">\( IEV_t = \max(0, S - S_k) \)</span>
+        </p>
+
+        <br />
+
+        <p class="text-zinc-300 text-lg">
+          If the option is not exercised, we assigned its value to the discount expected value of its future payoffs.
+          This is known as continuation value (<span class="math inline">\( CV_t \)</span>)
+        </p>
+        <span class="math display">
+          \[
+          CV_t = e^{-r \Delta t}\left(p V_{\text{up}} + (1 - p) V_{\text{down}}\right)
+          \]
+        </span>
+
+        <p class = "text-zinc-300 text-lg"> The option at time <span class = "math inline">T</span> has two possible values. We choose higher of the two because anything else would create an arbitrage opportunities (See Arbitrage Example down below):</p>
+        </br>
+        <span class = "math display">$$V_t = max(IET_t, CV_t)$$ </span>
 
         <h3 class="text-2xl font-semibold my-8 text-zinc-100">Arbitrage Example</h3>
         <p class="text-zinc-300 text-lg mb-8">
-          If <span class="math inline">\(IEV_t\) = $15</span> and
-          <span class="math inline">\(CV_t\) = $15</span> but the option is
-          priced at $15, an investor could buy it for $15 and earn a guaranteed
-          $5 profit — a violation of no-arbitrage.
+          Say we had a scenerio where we did not pick the max of the two possibilities: <span class="math inline">\(IEV_t\) = $20</span> and
+          <span class="math inline">\(CV_t\) = $15</span>. If the option is
+          priced at $15 (or anything lower than the max value, $20), an investor could buy it for $15 and immediately sell it for a risk-free gain of $5. This guaranteed $5 profit violates no-arbitrage, so the option must be worth $20.
         </p>
 
         <h3 class="text-2xl font-semibold my-8 text-zinc-100">General Example</h3>
@@ -378,7 +404,7 @@
       </div>
     </div>
       </div>
-      <h4 class="text-lg font-semibold my-6 text-zinc-200">American Option</h4>
+      <h4 class="text-lg font-semibold my-6 text-zinc-200" >American Option</h4>
       <div class="flex justify-center gap-20 example-tree p-10 rounded-xl bg-zinc-900/30 border border-zinc-800/40 mb-8">
     <!-- Step 0 -->
     <div class="flex flex-col justify-center">
@@ -448,7 +474,7 @@
 
     <!--Conclusion-->
   <section>
-    <h2 class="text-3xl font-semibold mb-8 text-zinc-100 border-b border-zinc-800/50 pb-4">Conclusion & Takeaway</h2>
+    <h2 class="text-3xl font-semibold mb-8 text-zinc-100 border-b border-zinc-800/50 pb-4 scroll-mt-[30vh]" id = "Conclusion & Takeaway">Conclusion & Takeaway</h2>
     <p>The Binomial Model combines two integral components of finance together -- time value of money and risk neutrality -- to determine a fair price for an option.
 
         One of my biggest takeaways was the absence of upward and downward probabilities: Regardless of the chances of the stock going up or down, the price of the option will be the same. Another way to look at it is we're pricing the volatility of the underlying asset. Intuitively, it makes sense, since market makers need to be hedged against up or down movement -- they don't profit off of guessing price direction, but from ensuring a fair and riskless price. 
@@ -458,13 +484,13 @@
 
   <!--Further Comments-->
   <section>
-      <h2 class="text-3xl font-semibold my-8 text-zinc-100 border-b border-zinc-800/50 pb-4">Further Comments</h2>
+      <h2 class="text-3xl font-semibold my-8 text-zinc-100 border-b border-zinc-800/50 pb-4 scroll-mt-[30vh]" id = "Further Comments">Further Comments</h2>
       <div>
-        <h3 class="text-2xl font-semibold mb-6 text-emerald-300">Conclusions</h3>
-        <p>Since the Black-Scholes model can be derived from the binary options model, I may consider tackling it in the future. I may also consider doing more complex operations, such as adding the Greeks for sensitivity changes, or maybe a computational approach to determining the volatility, U. <br>From a trading perspective, I may also consider applying the binary options model to the live market to see how well the model does in practice.  </p>
+        <h3 class="text-2xl font-semibold mb-6 text-emerald-300 scroll-mt-[30vh]" id ="Outlooks">Outlooks</h3>
+        <p>Since the Black-Scholes model can be derived from the binary options model, I may consider tackling it in the future. I may also consider doing more complex operations,such as computational approach to determining the volatility, U. <br>From a trading perspective, I may also consider applying the binary options model to the live market to see how well the model does in practice.  </p>
       </div>
       <div>
-        <h3 class="text-2xl font-semibold mb-6 text-emerald-300 mt-4">Remarks</h3>
+        <h3 class="text-2xl font-semibold mb-6 text-emerald-300 mt-4 scroll-mt-[30vh]" id = "Remarks">Remarks</h3>
         <p>I'd like to thank my finance professor, <a href = "https://www.isenberg.umass.edu/people/sara-smiarowski" target="_blank" class = "text-orange-400">Sara Smiarowski</a>, for introducing me to this topic. I'm very grateful for her guidance.
           I'd also like to thank my statistics professor, <a href = "https://www.umass.edu/mathematics-statistics/about/directory/mike-sullivan" target="_blank" class ="text-orange-400">Mike Sullivan</a>, for not only deriving but explaining the mathematical components behind the binomial model. I'm very grateful for his assistance.
 

@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 h1 {
     @apply text-6xl font-semibold tracking-tight text-zinc-100 ;
 }
@@ -127,6 +131,7 @@ main {
     @apply text-rose-400;
   }
 }
+
 
 input {
   transition: box-shadow 0.2s ease, border-color 0.2s ease;

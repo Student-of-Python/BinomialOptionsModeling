@@ -172,7 +172,7 @@ function postResult(finalTree) {
 
     // Option value (headline)
     document.getElementById("results_option_value").textContent =
-        `$${root.option_value.toFixed(2)}`;
+        `$${Math.max(0,root.option_value.toFixed(2))}`;
 
     const greeks = [
         ["delta", "Delta"],
@@ -225,11 +225,11 @@ function animateTreeByLevel(levelDelay = 180) {
 }
 
 function update() {
-    const S0 = Number(current_price.value);
-    const u = Number(U.value);
+    const S0 = Math.max(0,Number(current_price.value));
+    const u = Math.max(0,Number(U.value));
     const n = Math.min(4, Math.max(0, Number(steps.value)));
-    const r = Number(risk_rate.value);
-    const k = Number(strike.value);
+    const r = Math.max(0,Number(risk_rate.value));
+    const k = Math.max(0,Number(strike.value));
     const isCall = call_bool.checked;
     const isEuro = european_bool.checked;
 
@@ -242,11 +242,9 @@ function update() {
     postResult(greekTree);
     requestAnimationFrame(() => {
         drawConnections(greekTree.tree);
-        // start per-level animation once lines exist
         animateTreeByLevel(180);
     });
-    console.log("Rendered nodes:", document.querySelectorAll(".node").length);
-    console.log("SVG lines:", document.querySelectorAll("#tree-lines line").length);
+
 }
 
 
