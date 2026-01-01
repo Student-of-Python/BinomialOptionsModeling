@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html lang = "en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name = "Author" content = "Gleb Sokhin">
+  <title>Options | Home </title>
+  <link href = "styles.css" rel = "stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+  />
+
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+  ></script>
+
+
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body);"
+  ></script>
+</head>
+
+<body>
+  <header class="border-b border-zinc-800/50 backdrop-blur sticky top-0 z-40">
+    <nav aria-label="primary-nav" class="max-w-6xl mx-auto px-8 py-5">
+      <ul class="flex gap-8 text-sm tracking-wide justify-center text-zinc-400">
+        <li><a href="index.html" class="hover:text-white transition">Home</a></li>
+        <li><a href="binomialoptions.html" class="hover:text-white transition">Binomial Options Theory</a></li>
+        <li><a href = "greeks.html" class = "text-emerald-400">The Greeks</a></li>
+        <li><a href="binomialoptionsdemo.html" class="hover:text-white transition">Demo</a></li>
+        <li><a href="#" class="hover:text-white transition">Black–Scholes Options</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<main class="max-w-6xl mx-auto px-8 py-24 text-slate-900">
+
+  <!-- PAGE TITLE -->
+  <header class="mb-28 text-center">
+    <h1 class="text-6xl font-semibold tracking-tight mb-6">
+      The Greeks
+    </h1>
+    <p class="text-xl text-slate-500 max-w-2xl mx-auto">
+      Quantifying option price sensitivities in the binomial and continuous-time frameworks
+    </p>
+  </header>
+
+<!-- ===================== DELTA ===================== -->
+<section class="mb-32">
+
+  <h2 class="text-4xl font-semibold tracking-tight mb-12">Delta</h2>
+
+  <!-- Definition -->
+  <div class="mb-12">
+    <h3 class="section-label">Definition</h3>
+    <p class="section-text">
+      Delta measures the sensitivity of an option’s value to changes in the price of the underlying asset.
+      It represents the option’s first-order exposure to movements in the underlying.
+    </p>
+  </div>
+
+  <!-- Formula -->
+  <div class="mb-16">
+    <h3 class="section-label">Mathematical Representation</h3>
+
+    <div class="math-card">
+      \[
+      \Delta = \frac{\partial V}{\partial S}
+      \]
+    </div>
+
+    <p class="formula-caption">
+      In the binomial model, Delta is approximated by comparing option values across adjacent price nodes.
+    </p>
+
+    <div class="math-card mt-4">
+      \[
+      \Delta \approx
+      \frac{V_{\text{up}} - V_{\text{down}}}
+      {S_{\text{up}} - S_{\text{down}}}
+      \]
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div>
+    <h3 class="section-label mb-6">Alternate Uses & Interpretation</h3>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h4>Hedge Ratio</h4>
+        <p>
+          Delta represents the number of shares of the underlying required to hedge one option position.
+          A Delta of 0.6 implies holding 0.6 shares per option.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Directional Exposure</h4>
+        <p>
+          Delta captures an option’s directional bias.
+          Calls have positive Delta, puts have negative Delta,
+          and the magnitude reflects the option’s moneyness.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Probability Proxy</h4>
+        <p>
+          Under risk-neutral pricing, Delta can be interpreted as an approximation
+          of the probability that the option expires in-the-money.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+  <!-- ===================== GAMMA ===================== -->
+<section class="mb-32">
+
+  <h2 class="text-4xl font-semibold tracking-tight mb-12">Gamma</h2>
+
+  <!-- Definition -->
+  <div class="mb-12">
+    <h3 class="section-label">Definition</h3>
+    <p class="section-text">
+      Gamma measures the sensitivity of Delta to changes in the underlying price.
+      If Delta is velocity, Gamma is acceleration — it determines how fast Delta changes.
+    </p>
+  </div>
+
+  <!-- Formula -->
+  <div class="mb-16">
+    <h3 class="section-label">Mathematical Representation</h3>
+
+    <div class="math-card">
+      \[
+      \Gamma = \frac{\partial^2 V}{\partial S^2}
+      \]
+    </div>
+
+    <p class="formula-caption">
+      In a binomial framework, Gamma is approximated using changes in Delta across price nodes.
+    </p>
+
+    <div class="math-card mt-4">
+      \[
+      \Gamma \approx \frac{\Delta_{\text{up}} - \Delta_{\text{down}}}
+      {S_{\text{up}} - S_{\text{down}}}
+      \]
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div>
+    <h3 class="section-label mb-6">Alternate Uses & Interpretation</h3>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h4>Curvature</h4>
+        <p>
+          Gamma captures the curvature of the option’s value.
+          Linear instruments like stocks have zero Gamma; options do not.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Convexity Risk</h4>
+        <p>
+          Long options benefit from large price moves due to positive Gamma,
+          while short options are harmed by volatility.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Re-hedging Frequency</h4>
+        <p>
+          High Gamma means Delta changes rapidly,
+          requiring frequent rebalancing to remain Delta-neutral.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== THETA ===================== -->
+<section class="mb-32">
+
+  <h2 class="text-4xl font-semibold tracking-tight mb-12">Theta</h2>
+
+  <div class="mb-12">
+    <h3 class="section-label">Definition</h3>
+    <p class="section-text">
+      Theta measures how an option’s value changes as time passes,
+      holding all else constant. It quantifies time decay.
+    </p>
+  </div>
+
+  <div class="mb-16">
+    <h3 class="section-label">Mathematical Representation</h3>
+
+    <div class="math-card">
+      \[
+      \Theta = \frac{\partial V}{\partial t}
+      \]
+    </div>
+
+    <p class="formula-caption">
+      In the binomial model, Theta is approximated using midpoint traversal.
+    </p>
+
+    <div class="math-card mt-4">
+      \[
+      \Theta \approx \frac{V_{\text{mid}} - V_{\text{now}}}{2\,\Delta t}
+      \]
+    </div>
+  </div>
+
+  <div>
+    <h3 class="section-label mb-6">Alternate Uses & Interpretation</h3>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h4>Time Decay</h4>
+        <p>
+          As expiration approaches, uncertainty collapses and option value erodes.
+          Theta accelerates near maturity.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Cost of Waiting</h4>
+        <p>
+          Being directionally correct is insufficient —
+          the move must happen fast enough to overcome Theta.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Theta–Gamma Tradeoff</h4>
+        <p>
+          High Gamma positions often come with high Theta decay.
+          Convexity is rarely free.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== VEGA ===================== -->
+<section class="mb-32">
+
+  <h2 class="text-4xl font-semibold tracking-tight mb-12">Vega</h2>
+
+  <div class="mb-12">
+    <h3 class="section-label">Definition</h3>
+    <p class="section-text">
+      Vega measures sensitivity to volatility.
+      It reflects how option prices respond to changes in uncertainty,
+      not direction.
+    </p>
+  </div>
+
+  <div class="mb-16">
+    <h3 class="section-label">Mathematical Representation</h3>
+
+    <div class="math-card">
+      \[
+      \text{Vega} = \frac{\partial V}{\partial \sigma}
+      \]
+    </div>
+
+    <p class="formula-caption">
+      In discrete models, Vega is computed using volatility perturbations.
+    </p>
+
+    <div class="math-card mt-4">
+      \[
+      \text{Vega} \approx
+      \frac{V(\sigma + \varepsilon) - V(\sigma - \varepsilon)}
+      {2\,\varepsilon}
+      \]
+    </div>
+  </div>
+
+  <div>
+    <h3 class="section-label mb-6">Alternate Uses & Interpretation</h3>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h4>Volatility Exposure</h4>
+        <p>
+          Vega profits from volatility expansion regardless of direction.
+          Large moves — not correct direction — generate value.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Event Risk</h4>
+        <p>
+          Earnings and macro events inflate implied volatility,
+          creating opportunities — and IV crush risk.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Time Dependence</h4>
+        <p>
+          Longer-dated options have higher Vega since uncertainty
+          needs time to express itself.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RHO ===================== -->
+<section class="mb-32">
+
+  <h2 class="text-4xl font-semibold tracking-tight mb-12">Rho</h2>
+
+  <div class="mb-12">
+    <h3 class="section-label">Definition</h3>
+    <p class="section-text">
+      Rho measures sensitivity to the risk-free interest rate.
+      It quantifies how discounting future payoffs impacts option value.
+    </p>
+  </div>
+
+  <div class="mb-16">
+    <h3 class="section-label">Mathematical Representation</h3>
+
+    <div class="math-card">
+      \[
+      \rho = \frac{\partial V}{\partial r}
+      \]
+    </div>
+
+    <p class="formula-caption">
+      In the binomial model, Rho is approximated via rate perturbations.
+    </p>
+
+    <div class="math-card mt-4">
+      \[
+      \rho \approx
+      \frac{V(r+\varepsilon) - V(r-\varepsilon)}
+      {2\,\varepsilon}
+      \]
+    </div>
+  </div>
+
+  <div>
+    <h3 class="section-label mb-6">Alternate Uses & Interpretation</h3>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h4>Time Value of Money</h4>
+        <p>
+          Higher interest rates reduce the present value of future payoffs,
+          altering option prices.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Long-Dated Sensitivity</h4>
+        <p>
+          Rho is negligible for short-term options but meaningful
+          for long maturities.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Macro Hedging</h4>
+        <p>
+          Rho exposure is often hedged using rate-sensitive instruments
+          such as bonds, swaps, and futures.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+  <footer class="border-t border-zinc-800/50 mt-20 bg-zinc-900/30">
+    <div class="max-w-6xl mx-auto px-8 py-12 flex flex-col sm:flex-row items-center justify-between gap-8">
+      <div class="flex flex-col items-center sm:items-start gap-4">
+        <div class="text-sm text-zinc-400 tracking-wide">
+          © 2026 Gleb Sokhin
+        </div>
+        <div class="flex gap-4">
+          <a href="https://glebquant.netlify.app/" target="_blank" class="transition hover:opacity-80"><img src="public/img/sigmaicon.png" width="50px" alt="Portfolio"></a>
+          <a href="https://www.linkedin.com/in/gleb-sokhin/" target="_blank" class="transition hover:opacity-80"><img src="public/img/linkedinlogo.png" width="50px" alt="LinkedIn"></a>
+          <a href="https://github.com/Student-of-Python" target="_blank" class="transition hover:opacity-80"><img src="public/img/githublogo.png" width="50px" alt="GitHub"></a>
+        </div>
+      </div>
+        
+      <nav class="flex gap-6 text-sm tracking-wide text-zinc-400">
+        <a href="index.html" class="hover:text-white transition">Home</a>
+        <a href="binomialoptions.html" class="hover:text-white transition">Theory</a>
+        <a href="binomialoptionsdemo.html" class="hover:text-white transition">Demo</a>
+      </nav>
+    </div>
+  </footer>
+
+</body>
+
+</html>
