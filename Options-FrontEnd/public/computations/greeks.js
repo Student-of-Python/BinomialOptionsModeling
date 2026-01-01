@@ -10,14 +10,14 @@ export class Greeks{
 
         this.underlying_tree = underlying_tree;
         this.option_tree = option_tree;
-        this.i_tree = option_tree.tree;
+        this.tree = option_tree.tree;
         this.p_tree = underlying_tree.tree;
 
         //Misc
         this.strike = option_tree.strike;
         this.call_bool = option_tree.call_bool;
         this.delta_t = option_tree.delta_t;
-        this.height = underlying.steps + 1;
+        this.height = underlying_tree.steps + 1;
 
 
 
@@ -62,8 +62,8 @@ export class Greeks{
         let mid = 2*(2*i+1) + 2 //Left Right
         
         //For all valid middle Nodes
-        if (mid < this.i_tree.length) {
-            parent.theta = (this.i_tree[mid].option_value - parent.option_value) / (2 * this.delta_t)
+        if (mid < this.tree.length) {
+            parent.theta = (this.tree[mid].option_value - parent.option_value) / (2 * this.delta_t)
         } 
         else{
             parent.theta = null;
@@ -75,7 +75,7 @@ export class Greeks{
         let vega_plus = this.vega_option_tree(this.vega_epsilon);
         let vega_minus = this.vega_option_tree(-this.vega_epsilon);
 
-        this.i_tree[0].vega = (vega_plus[0].option_value - vega_minus[0].option_value) / (2*this.vega_epsilon);
+        this.tree[0].vega = (vega_plus[0].option_value - vega_minus[0].option_value) / (2*this.vega_epsilon);
     }
 
 
@@ -83,7 +83,7 @@ export class Greeks{
         let rho_plus = this.rho_option_tree(this.rho_epsilon);
         let rho_minus = this.rho_option_tree(-this.rho_epsilon);
         
-        this.i_tree[0].rho = (rho_plus[0].option_value - rho_minus[0].option_value) / (2*this.rho_epsilon);
+        this.tree[0].rho = (rho_plus[0].option_value - rho_minus[0].option_value) / (2*this.rho_epsilon);
 
     }
 
@@ -118,11 +118,11 @@ export class Greeks{
         this.apply_vega()
         this.apply_rho()
 
-        for(let i = (this.i_tree.length - 1); i >= 0; i--){
-            let parent = this.i_tree[i];
+        for(let i = (this.tree.length - 1); i >= 0; i--){
+            let parent = this.tree[i];
             //define left + right
-            let left = (2 * i + 1 <= this.i_tree.length - 1) ? this.i_tree[2 * i + 1] : null;
-            let right = (2 * i + 2  <= this.i_tree.length - 1) ? this.i_tree[2 * i + 2] : null;
+            let left = (2 * i + 1 <= this.tree.length - 1) ? this.tree[2 * i + 1] : null;
+            let right = (2 * i + 2  <= this.tree.length - 1) ? this.tree[2 * i + 2] : null;
 
             // Apply Greek functions:
             this.apply_delta(parent, right, left);
@@ -133,7 +133,7 @@ export class Greeks{
     }
 
     print_tree(i = 0, prefix = "", isLeft = true) {
-        if (i > this.i_tree.length - 1){
+        if (i > this.tree.length - 1){
             return;
         }
 
@@ -146,9 +146,9 @@ export class Greeks{
         console.log(
             prefix +
             (isLeft ? "└── " : "┌── ") +
-            (typeof this.i_tree[i].rho === "number"
-                ? this.i_tree[i].rho.toFixed(2)
-                : this.i_tree[i].rho)
+            (typeof this.tree[i].rho === "number"
+                ? this.tree[i].rho.toFixed(2)
+                : this.tree[i].rho)
         );
 
         this.print_tree(

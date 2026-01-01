@@ -53,12 +53,12 @@
 
       <div class="flex flex-col gap-1">
         <label class="text-xs text-zinc-400">Underlying Price</label>
-        <input id="current_price" type="number" value="100" class="input" />
+        <input id="current_price" type="number" value="100" min = '0' class="input" />
       </div>
 
       <div class="flex flex-col gap-1">
         <label class="text-xs text-zinc-400">Strike</label>
-        <input id="strike" type="number" value="102" class="input" />
+        <input id="strike" type="number" value="102" min = '0' class="input" />
       </div>
 
       <div class="flex flex-col gap-1">
@@ -68,12 +68,12 @@
 
       <div class="flex flex-col gap-1">
         <label class="text-xs text-zinc-400">Up Factor (U)</label>
-        <input id="U" type="number" step="0.01" value="1.1" class="input" />
+        <input id="U" type="number" step="0.01" value="0.1" min = '0.01' max = '3' class="input" />
       </div>
 
       <div class="flex flex-col gap-1">
         <label class="text-xs text-zinc-400">Steps</label>
-        <input id="steps" type="number" value="2" min="1" class="input" />
+        <input id="steps" type="number" value="2" min="1" max="4" class="input" />
       </div>
 
     </div>
@@ -94,21 +94,75 @@
     </div>
   </section>
 
-  <!-- TREE OUTPUT -->
-  <section>
-    <h2 class="text-2xl font-medium mb-6">Tree Visualization</h2>
+<section class="mt-12">
+  <h2 class="text-2xl font-semibold mb-6">Results</h2>
 
-    <div
-      id="tree"
-      class="flex flex-col items-center gap-6 p-8 rounded-xl
-             bg-zinc-900/40 border border-zinc-800"
-    >
-      <!-- JS renders tree here -->
-      <p class="text-zinc-500 text-sm">
-        Adjust parameters to generate the tree.
+  <div
+    id="results"
+    class="p-8 rounded-xl
+           bg-zinc-900/50 border border-zinc-800
+           max-w-2xl"
+  >
+    <!-- Main Result -->
+    <div class="mb-8 text-center">
+      <p class="text-zinc-400 text-sm tracking-wide mb-1">
+        Fair Option Price
       </p>
+      <div
+        id="results_option_value"
+        class="text-5xl font-semibold font-mono text-emerald-400"
+      >
+        —
+      </div>
     </div>
-  </section>
+
+    <!-- Greeks -->
+    <div class="grid grid-cols-3 gap-4">
+      <div class="greek-card" id="results_delta"></div>
+      <div class="greek-card" id="results_gamma"></div>
+      <div class="greek-card" id="results_theta"></div>
+      <div class="greek-card" id="results_vega"></div>
+      <div class="greek-card" id="results_rho"></div>
+    </div>
+  </div>
+</section>
+
+  <!-- TREE OUTPUT -->
+<section>
+  <h2 class="text-2xl font-medium my-6">Tree Visualization</h2>
+
+    <!-- Wrapper establishes positioning + scrolling -->
+<div id="tree-wrapper" class="relative overflow-x-auto overflow-y-auto">
+
+  <!-- Tree container (this is what you scale) -->
+  <div
+    id="tree"
+    class="
+      relative
+      grid
+      justify-center
+      items-center
+      p-8
+      rounded-xl
+      bg-zinc-900/40
+      border border-zinc-800
+    "
+  >
+    <!-- SVG layer for connections -->
+    <svg
+      id="tree-lines"
+      class="absolute inset-0 w-full h-full pointer-events-none z-0"
+    ></svg>
+
+    <!-- Nodes live here -->
+    <p class="text-zinc-500 text-sm col-span-full text-center z-10" id = "Instruct Params">
+      Adjust parameters to generate the tree.
+    </p>
+
+  </div>
+</div>
+
+</section>
 
 </main>
 

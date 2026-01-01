@@ -17,7 +17,7 @@ export class OptionTree{
     this.strike = strike_price;
     this.call_bool = call_option;
     this.european_bool = european_option;
-
+    
     //Misc
     this.height = underlyingTree.steps + 1;
     this.delta_t = 1.0 / (this.height);
@@ -55,14 +55,16 @@ export class OptionTree{
                 let right = this.tree[2 * i + 2]
 
                 let discount_option_value = Math.exp(-1 * this.risk_rate * this.delta_t) * (this.prob * right.option_value + (1 - this.prob) * left.option_value);
-                
+
                 //European Options
                 if (this.european_bool) {
                     node.option_value = discount_option_value;
+
                 }
 
                 //American Option
                 else{
+
                   node.option_value = Math.max(this.compute_payoff(node) , discount_option_value);
                 }
             }
