@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <link href = "/img/DeltaLogo.png" rel = "icon">
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
@@ -96,10 +96,9 @@
     </section>
 
     <!-- CORE CONCEPTS -->
-    <section id="core-concepts" class="mb-24 scroll-mt-[30vh]"">
-      <h2 class="text-3xl font-semibold mb-8 text-zinc-100 border-b border-zinc-800/50 pb-4">
-        Core Concepts
-      </h2>
+    <section id="core-concepts" class="mb-24 scroll-mt-[30vh]">
+      <h2 class="text-3xl font-semibold mb-8 text-zinc-100 border-b border-zinc-800/50 pb-4"> Core Concepts </h2>
+
       <h3 class="text-xl font-semibold mb-6 text-emerald-300">
         Five Key Components
       </h3>
@@ -239,14 +238,18 @@
 
         <h4 class="text-xl font-semibold mb-4 mt-8 text-zinc-200">Step 1: Calculate the Payoffs</h4>
         <p class="text-zinc-300 max-w-3xl mb-8 text-lg">
-          For a call option:
-          <br />
-          <span class="math display">$$\text{Payoff} = \max(0,\; S - S_k)$$</span>
-          <br />
-          For a put option:
-          <br />
-          <span class="math display">$$\text{Payoff} = \max(0,\; S_k - S)$$</span>
+          For a Call option:
+
+            <div class="my-8 p-6 rounded-lg bg-zinc-900/50 border border-zinc-800/30">
+              <span class="math display">$$\text{Payoff} = \max(0,\; S - S_k)$$</span>
+            </div>
         </p>
+        <p class ="text-zinc-300 max-w-3xl mb-8 text-lg">
+            For a Put option:: 
+            <div class="my-8 p-6 rounded-lg bg-zinc-900/50 border border-zinc-800/30">
+              <span class="math display">$$\text{Payoff} = \max(0,\; S_k - S)$$</span>
+            </div>
+          </p>
 
         <h4 class="text-xl font-semibold mb-4 mt-8 text-zinc-200">Step 2: Work Backward</h4>
         <p class="text-zinc-300 max-w-3xl mb-6 text-lg">
@@ -265,7 +268,10 @@
           <br /> \(p\) is the risk-neutral probability
         </p>
 
-        <span class="math display">$$ p = \frac{e^{r \cdot \Delta t} - D}{U - D} $$</span>
+
+        <div class="my-8 p-6 rounded-lg bg-zinc-900/50 border border-zinc-800/30">
+              <span class="math display">$$ p = \frac{e^{r \cdot \Delta t} - D}{U - D} $$</span>
+        </div>
         <p class="text-zinc-300 mt-6 text-lg">
           Note that instead of real-world probabilities, we use the risk-neutral
           probability. This ensures <strong><a href = "https://www.youtube.com/watch?v=fZa75q5Fkkk%5C" target="_blank" class = "text-orange-400">no arbitrage</a></strong> -- there is no way
@@ -274,7 +280,11 @@
 
         <p class="text-zinc-300 mt-6 text-lg"> Although it may be complicated, it'll be easier to understand once broken down. Inside the formula, it'll look identical as if you were to compute the regular expected value of the option, 
           except we used risk-neutral probability instead of up and down probabilities.</p>
-        <span class = "math display">$$V_{current} = (p_{up} \cdot V_{\text{up}} + (1-p_{down}) \cdot V_{\text{down}})$$</span>
+
+          <div class="my-8 p-6 rounded-lg bg-zinc-900/50 border border-zinc-800/30">
+               <span class = "math display">$$V_{current} = (p_{up} \cdot V_{\text{up}} + (1-p_{down}) \cdot V_{\text{down}})$$</span>
+          </div>
+       
         <p> The factor being multiplied by the expected value (<span class="math inline">\( e^{-r \Delta t} \)</span>) is the discount factor. Since money is flowing from the future and closer to the present day, we must <strong><a href = "https://en.wikipedia.org/wiki/Time_value_of_money" target = "_blank" class = "text-orange-400">discount</a></strong> it so that it is equivalent in value. </p>
 
         <p class="text-zinc-300 mt-6 text-lg">
@@ -335,13 +345,19 @@
           The value of exercising immediately is called the immediate exercise value (<span class="math inline">\(IEV_t\)</span>) which is simply the payoff at that moment: </p>
         <br></br>
         <p class="text-zinc-300 text-lg my-4">
-          Call option:
-          <span class="math inline">\( IEV_t = \max(0, S_k - S) \)</span>
+          For a Call option:
+          <div class="my-8 p-6 rounded-lg bg-zinc-900/50 border border-zinc-800/30 text-center">
+              <span class="math display">\( IEV_t = \max(0, S - S_k) \)</span>
+          </div>
+          
         </p>
 
         <p class="text-zinc-300 text-lg my-4">
-          Put option:
-          <span class="math inline">\( IEV_t = \max(0, S - S_k) \)</span>
+          For a Put option:
+          <div class="my-8 p-6 rounded-lg bg-zinc-900/50 border border-zinc-800/30 text-center">
+              <span class="math display">\( IEV_t = \max(0, S_k - S) \)</span>
+          </div>
+
         </p>
 
         <br />
@@ -350,19 +366,25 @@
           If the option is not exercised, we assigned its value to the discount expected value of its future payoffs.
           This is known as continuation value (<span class="math inline">\( CV_t \)</span>)
         </p>
-        <span class="math display">
-          \[
-          CV_t = e^{-r \Delta t}\left(p V_{\text{up}} + (1 - p) V_{\text{down}}\right)
-          \]
-        </span>
+        
+        <div class="my-8 p-6 rounded-lg bg-zinc-900/50 border border-zinc-800/30 text-center">
+              <span class="math display">
+                \[
+                CV_t = e^{-r \Delta t}\left(p V_{\text{up}} + (1 - p) V_{\text{down}}\right)
+                \]
+            </span>
+          </div>
 
         <p class = "text-zinc-300 text-lg"> The option at time <span class = "math inline">T</span> has two possible values. We choose higher of the two because anything else would create an arbitrage opportunities (See Arbitrage Example down below):</p>
-        </br>
-        <span class = "math display">$$V_t = max(IET_t, CV_t)$$ </span>
+
+        <div class="my-8 p-6 rounded-lg bg-zinc-900/50 border border-zinc-800/30 text-center">
+              <span class = "math display">$$V_t = max(IET_t, CV_t)$$ </span>
+          </div>
+        
 
         <h3 class="text-2xl font-semibold my-8 text-zinc-100">Arbitrage Example</h3>
         <p class="text-zinc-300 text-lg mb-8">
-          Say we had a scenerio where we did not pick the max of the two possibilities: <span class="math inline">\(IEV_t\) = $20</span> and
+          Say we had a scenario where we did not pick the max of the two possibilities: <span class="math inline">\(IEV_t\) = $20</span> and
           <span class="math inline">\(CV_t\) = $15</span>. If the option is
           priced at $15 (or anything lower than the max value, $20), an investor could buy it for $15 and immediately sell it for a risk-free gain of $5. This guaranteed $5 profit violates no-arbitrage, so the option must be worth $20.
         </p>
@@ -506,9 +528,9 @@
           © 2026 Gleb Sokhin
         </div>
         <div class="flex gap-4">
-          <a href="https://glebquant.netlify.app/" target="_blank" class="transition hover:opacity-80"><img src="public/img/sigmaicon.png" width="50px" alt="Portfolio"></a>
-          <a href="https://www.linkedin.com/in/gleb-sokhin/" target="_blank" class="transition hover:opacity-80"><img src="public/img/linkedinlogo.png" width="50px" alt="LinkedIn"></a>
-          <a href="https://github.com/Student-of-Python" target="_blank" class="transition hover:opacity-80"><img src="public/img/githublogo.png" width="50px" alt="GitHub"></a>
+          <a href="https://glebquant.netlify.app/" target="_blank" class="transition hover:opacity-80"><img src="/img/sigmaicon.png" width="50px" alt="Portfolio"></a>
+          <a href="https://www.linkedin.com/in/gleb-sokhin/" target="_blank" class="transition hover:opacity-80"><img src="/img/linkedinlogo.png" width="50px" alt="LinkedIn"></a>
+          <a href="https://github.com/Student-of-Python" target="_blank" class="transition hover:opacity-80"><img src="/img/githublogo.png" width="50px" alt="GitHub"></a>
         </div>
       </div>
         

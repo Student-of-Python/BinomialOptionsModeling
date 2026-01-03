@@ -1,7 +1,7 @@
-import { Node } from "../computations/node.js";
-import { OptionTree } from "../computations/backward_tree.js";
-import { UnderlyingTree } from "../computations/forward_tree.js";
-import { Greeks } from "../public/computations/greeks.js";
+import { Node } from "./computations/node.js";
+import { OptionTree } from "./computations/backward_tree.js";
+import { UnderlyingTree } from "./computations/forward_tree.js";
+import { Greeks } from "./computations/greeks.js";
 
 //Vars
 //Underlying Tree Vars

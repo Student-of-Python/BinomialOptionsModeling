@@ -278,29 +278,6 @@ European option = False (American Option)
             └── 26.87
 ```
 
-## The Greeks
-
-### Delta
-#### What is it?
-Delta measures how much the option value will change given the underlying asset's price also changes. It answers the question of how sensitive the option is to the overall movement of the underlying .
-
-
-#### How do we derive it? 
-Intuitively, the formula can be seen as such:
-
-$$ \Delta = \frac{V_{u} - V_d}{S_u - S_d} $$
-
-Or simply
-
-$$ \Delta = \frac{\partial V}{\partial S} $$
-
-At terminal nodes, delta is undefined  
-
-#### What are the applications?
-
-
-
-#### Example:
 
 
 
