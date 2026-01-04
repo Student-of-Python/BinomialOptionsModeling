@@ -4,6 +4,7 @@
 
 **This is only for educational purposes, this is NOT financial advice**
 
+## I made a website for this project! [Learn more here!](https://letstalkoptions.netlify.app/)
 
 ## Table of Contents
 1. [Introduction](#introduction)
