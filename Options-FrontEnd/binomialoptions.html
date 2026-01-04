@@ -294,34 +294,34 @@
 
         <h3 class="text-2xl font-semibold my-8 text-zinc-100">Example</h3>
         <p class="text-zinc-300 mb-6 text-lg">
-          <span class="text-yellow-300 font-mono text-sm">Iterations = 2 | U = 1.1 | D = 0.9 | Risk-free rate = 0.03 | Strike = 102 | Call option = True</span>
+          <span class="text-yellow-300 font-mono text-sm">Iterations = 2 | U = 1.1 | D = 0.9 | Risk-free rate = 0.03 | Strike = 102 | Underlying Price = 100 | Call option = True</span>
         </p>
 
         <div class="flex justify-center gap-20 example-tree p-10 rounded-xl bg-zinc-900/30 border border-zinc-800/40 mb-8 mt-8">
     <!-- Step 0 -->
     <div class="flex flex-col justify-center">
       <div class="node node-active">
-        <span class="font-mono">7.19</span>
+        <span class="font-mono">5.21</span>
       </div>
     </div>
 
     <!-- Step 1 -->
     <div class="flex flex-col gap-6 justify-center">
       <div class="node node-up">
-        <span class="font-mono">12.08</span>
+        <span class="font-mono">9.95</span>
       </div>
       <div class="node node-down">
-        <span class="font-mono">2.10</span>
+        <span class="font-mono">0.00</span>
       </div>
     </div>
 
     <!-- Step 2 -->
     <div class="flex flex-col gap-6">
       <div class="node node-up">
-        <span class="font-mono">19.76</span>
+        <span class="font-mono">19.00</span>
       </div>
       <div class="node">
-        <span class="font-mono">4.09</span>
+        <span class="font-mono">0.00</span>
       </div>
       <div class="node node-down">
         <span class="font-mono">0.00</span>
@@ -391,7 +391,7 @@
 
         <h3 class="text-2xl font-semibold my-8 text-zinc-100">General Example</h3>
         <p class="text-zinc-300 mb-8 text-lg">
-          <span class="text-yellow-300 font-mono text-sm">Iterations = 2 | U = 1.1 | D = 0.9 | Risk-free rate = 0.1 | Strike = 102 | Put option (American)</span>
+          <span class="text-yellow-300 font-mono text-sm">Iterations = 2 | U = 1.1 | D = 0.9 | Risk-free rate = 0.1 | Strike = 102 | Underlying Price = 100 | Put option (American)</span>
         </p>
 
         <h4 class="text-lg font-semibold my-6 text-zinc-200">Underlying Asset Price Action</h4>
@@ -431,14 +431,14 @@
     <!-- Step 0 -->
     <div class="flex flex-col justify-center">
       <div class="node node-active">
-        <span class="font-mono">5.19</span>
+        <span class="font-mono">4.14</span>
       </div>
     </div>
 
     <!-- Step 1 -->
     <div class="flex flex-col gap-6 justify-center">
       <div class="node node-up">
-        <span class="font-mono">1.61</span>
+        <span class="font-mono">0.67</span>
       </div>
       <div class="node node-down">
         <span class="font-mono">11.09</span>
@@ -451,7 +451,7 @@
         <span class="font-mono">0.00</span>
       </div>
       <div class="node">
-        <span class="font-mono">4.23</span>
+        <span class="font-mono">2.00</span>
       </div>
       <div class="node node-down">
         <span class="font-mono">19.36</span>
@@ -463,17 +463,17 @@
     <!-- Step 0 -->
     <div class="flex flex-col justify-center">
       <div class="node node-active">
-        <span class="font-mono">4.37</span>
+        <span class="font-mono">3.02</span>
       </div>
     </div>
 
     <!-- Step 1 -->
     <div class="flex flex-col gap-6 justify-center">
       <div class="node node-up">
-        <span class="font-mono">1.61</span>
+        <span class="font-mono">0.67</span>
       </div>
       <div class="node node-down">
-        <span class="font-mono">8.94</span>
+        <span class="font-mono">7.75</span>
       </div>
     </div>
 
@@ -483,10 +483,10 @@
         <span class="font-mono">0.00</span>
       </div>
       <div class="node">
-        <span class="font-mono">4.23</span>
+        <span class="font-mono">2.00</span>
       </div>
       <div class="node node-down">
-        <span class="font-mono">16.84</span>
+        <span class="font-mono">19.36</span>
       </div>
         </div>
       </div>

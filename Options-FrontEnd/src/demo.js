@@ -226,7 +226,7 @@ function animateTreeByLevel(levelDelay = 180) {
 
 function update() {
     const S0 = Math.max(0,Number(current_price.value));
-    const u = Math.max(0,Number(U.value));
+    const u = Math.max(1,Number(U.value)) - 1;
     const n = Math.min(4, Math.max(0, Number(steps.value)));
     const r = Math.max(0,Number(risk_rate.value));
     const k = Math.max(0,Number(strike.value));

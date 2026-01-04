@@ -16,7 +16,7 @@ public class Main {
 
         double current_stock_price = 100.0;
         double price_movement = 0.1; 
-        int iterations = 3;
+        int iterations = 2;
 
         boolean call_option = false;
         boolean european_option = false; 
